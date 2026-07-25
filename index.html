@@ -189,6 +189,37 @@ section { position: relative; padding: 100px 0 120px; overflow: hidden; }
 .cube i:nth-child(5) { transform: rotateX(90deg) translateZ(calc(var(--s) / 2)); }
 .cube i:nth-child(6) { transform: rotateX(-90deg) translateZ(calc(var(--s) / 2)); }
 
+/* ============ ПЛАВАЮЩИЕ АКУЛЫ ============ */
+.shark {
+  position: absolute; pointer-events: none; z-index: 0;
+  animation: shark-swim linear infinite;
+}
+.shark svg {
+  display: block; width: 100%; height: auto;
+  color: rgba(196,164,255,.5);
+  filter: drop-shadow(0 0 14px rgba(155,111,232,.45));
+  animation: shark-sway 5s ease-in-out infinite alternate;
+}
+.shark.flip svg { transform: scaleX(-1); }
+@keyframes shark-swim {
+  from { transform: translateX(-32vw); }
+  to   { transform: translateX(122vw); }
+}
+.shark.rtl { animation-name: shark-swim-rtl; }
+@keyframes shark-swim-rtl {
+  from { transform: translateX(122vw); }
+  to   { transform: translateX(-32vw); }
+}
+@keyframes shark-sway {
+  from { rotate: -3deg; translate: 0 0; }
+  to   { rotate: 3deg; translate: 0 -14px; }
+}
+.shark.flip svg { animation-name: shark-sway-flip; }
+@keyframes shark-sway-flip {
+  from { transform: scaleX(-1) rotate(3deg) translateY(0); }
+  to   { transform: scaleX(-1) rotate(-3deg) translateY(-14px); }
+}
+
 /* ============ REVEAL ON SCROLL ============ */
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -1039,6 +1070,45 @@ footer .container { display: flex; align-items: center; justify-content: space-b
 </head>
 <body>
 
+<!-- силуэт акулы, переиспользуется через <use> -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="sharkFill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#C4A4FF" stop-opacity=".62"/>
+      <stop offset=".55" stop-color="#9B6FE8" stop-opacity=".4"/>
+      <stop offset="1" stop-color="#5B2FBE" stop-opacity=".22"/>
+    </linearGradient>
+  </defs>
+  <symbol id="shark" viewBox="0 0 240 110">
+    <path fill="url(#sharkFill)" d="M234 56
+      C226 50 215 45 202 42
+      C186 38 168 36 152 36
+      C148 22 141 12 130 7
+      C132 18 131 28 126 36
+      C104 37 82 40 62 45
+      C56 46 50 48 44 49
+      C43 43 39 38 33 35
+      C35 41 35 46 33 50
+      C27 52 20 54 14 56
+      C15 43 11 27 3 15
+      C8 30 10 44 11 57
+      C7 66 4 75 3 84
+      C9 77 15 69 19 62
+      C28 64 38 65 50 66
+      C52 72 56 77 63 80
+      C61 74 61 69 62 66
+      C80 67 100 67 118 66
+      C116 78 110 90 100 99
+      C112 94 124 83 132 70
+      C140 69 148 68 156 66
+      C172 64 190 62 206 58
+      C216 56 226 56 234 56 Z"/>
+    <path d="M196 44c3 4 4 9 3 14M188 45c3 4 4 9 3 13M180 46c3 4 4 8 3 12" stroke="rgba(10,7,22,.55)" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M227 60c-7 4-14 5-22 4" stroke="rgba(10,7,22,.5)" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <circle cx="214" cy="49" r="2.6" fill="rgba(8,6,16,.85)"/>
+  </symbol>
+</svg>
+
 <div class="scroll-progress" id="scrollProgress"></div>
 <div class="orb orb-purple"></div>
 <div class="orb orb-violet"></div>
@@ -1071,6 +1141,14 @@ footer .container { display: flex; align-items: center; justify-content: space-b
   </div>
   <div class="cube-wrap" style="left:16%; bottom:18%; --s:26px; animation-delay:-2s;" aria-hidden="true">
     <div class="cube" style="--s:26px; animation-duration:18s;"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  </div>
+
+  <!-- плавающие акулы -->
+  <div class="shark" style="width:160px; top:9%; animation-duration:52s; animation-delay:-8s; opacity:.45;" aria-hidden="true">
+    <svg viewBox="0 0 240 110"><use href="#shark"/></svg>
+  </div>
+  <div class="shark rtl flip" style="width:92px; top:70%; animation-duration:68s; animation-delay:-24s; opacity:.3;" aria-hidden="true">
+    <svg viewBox="0 0 240 110"><use href="#shark"/></svg>
   </div>
 
   <!-- HUD: дашборд -->
@@ -1164,6 +1242,12 @@ footer .container { display: flex; align-items: center; justify-content: space-b
   <div class="shard deep" style="width:14px;height:14px;top:70%;right:8%;animation-duration:12s;"></div>
   <div class="cube-wrap lg" style="right:6%; top:10%; --s:38px; animation-delay:-4s;" aria-hidden="true">
     <div class="cube" style="--s:38px; animation-duration:26s;"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  </div>
+  <div class="shark rtl flip" style="width:130px; top:74%; animation-duration:58s; animation-delay:-15s; opacity:.35;" aria-hidden="true">
+    <svg viewBox="0 0 240 110"><use href="#shark"/></svg>
+  </div>
+  <div class="shark" style="width:80px; top:86%; animation-duration:74s; animation-delay:-40s; opacity:.22;" aria-hidden="true">
+    <svg viewBox="0 0 240 110"><use href="#shark"/></svg>
   </div>
   <div class="container">
     <div class="problem-intro reveal">
@@ -1541,6 +1625,9 @@ footer .container { display: flex; align-items: center; justify-content: space-b
   </div>
   <div class="cube-wrap lg" style="right:11%; bottom:20%; --s:30px; animation-delay:-6s;" aria-hidden="true">
     <div class="cube" style="--s:30px; animation-duration:24s; animation-direction:reverse;"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  </div>
+  <div class="shark" style="width:120px; top:72%; animation-duration:60s; animation-delay:-20s; opacity:.3;" aria-hidden="true">
+    <svg viewBox="0 0 240 110"><use href="#shark"/></svg>
   </div>
   <div class="container">
     <h2 class="display-l grad-text reveal">Иногда один день может изменить&nbsp;всё</h2>
