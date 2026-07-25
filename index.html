@@ -702,7 +702,7 @@ section { position: relative; padding: 100px 0 120px; overflow: hidden; }
 
 /* ============ SPEAKER ============ */
 .speaker { padding: 80px 0 90px; background: linear-gradient(180deg, var(--black), #0a0916 60%, var(--black)); }
-.speaker-top { display: grid; grid-template-columns: 1.3fr .7fr; gap: 44px; align-items: center; margin-bottom: 44px; }
+.speaker-top { display: grid; grid-template-columns: 1fr 230px; gap: 40px; align-items: start; margin-bottom: 40px; }
 .speaker-name { margin: 16px 0 12px; text-transform: uppercase; }
 .speaker-role { color: var(--idd); line-height: 1.8; }
 .speaker-quote {
@@ -711,8 +711,9 @@ section { position: relative; padding: 100px 0 120px; overflow: hidden; }
   font-size: 16px; font-style: italic; color: var(--id2);
 }
 .speaker-photo {
-  position: relative; border-radius: 18px; overflow: hidden;
-  aspect-ratio: 4 / 5; max-width: 300px; justify-self: end; width: 100%;
+  position: relative; border-radius: 16px; overflow: hidden;
+  aspect-ratio: 4 / 5; max-width: 230px; justify-self: end; width: 100%;
+  margin-top: 6px;
   background: linear-gradient(150deg, #171226, #0a0a14 65%);
   border: 1px solid rgba(155,111,232,.24);
   box-shadow: 0 30px 70px -30px rgba(0,0,0,.9), 0 0 60px -18px rgba(155,111,232,.4);
@@ -981,8 +982,8 @@ footer .container { display: flex; align-items: center; justify-content: space-b
     0%, 100% { transform: scale(.52) translateY(0) rotate(-1.5deg); }
     50% { transform: scale(.52) translateY(-12px) rotate(1.5deg); }
   }
-  .speaker-top { grid-template-columns: 1fr; gap: 32px; }
-  .speaker-photo { max-width: 300px; justify-self: start; }
+  .speaker-top { grid-template-columns: 1fr; gap: 26px; }
+  .speaker-photo { max-width: 210px; justify-self: start; margin-top: 0; }
   .results-grid { gap: 56px 80px; }
 }
 @media (max-width: 600px) {
@@ -1340,9 +1341,10 @@ footer .container { display: flex; align-items: center; justify-content: space-b
         <p class="label speaker-role">Маркетолог-стратег · Архитектор систем роста · Основатель WIKKI.OCEAN</p>
         <p class="speaker-quote">«Большой стратегии больше не нужна большая команда. Нужна правильная система»</p>
         <div class="speaker-story">
-          <p>Первые деньги заработала в 12 лет. К 20 за спиной больше <b>100 проектов</b>: локальные запуски, международные онлайн-школы, digital-кампания кандидата в президенты.</p>
-          <p>Сейчас строю системы роста — маркетинг, операционка и AI-агенты, которые закрывают объём работы целых отделов. Живу в нескольких странах, изучаю подходы в России, Америке, Европе и Китае, готовлюсь к поступлению в американскую бизнес-школу.</p>
-          <p>Платформы и сайты собираю сама, без подрядчиков: <b>система остаётся у клиента</b> с полным доступом и без ежемесячных платежей.</p>
+          <p>Первый бизнес открыла в 12 лет. К 20 годам за спиной более 5 лет опыта в маркетинге и <b>100+ проектов</b> на российском и международном уровне: от локальных запусков и офлайн-мероприятий до европейских онлайн-школ и <b>руководства digital-командой кандидата в президенты</b>.</p>
+          <p>Я верю, что каждый бизнес — это океан потенциала, поэтому моя компания <b>WIKKI.OCEAN</b> превращает его в систему: маркетинг, который строит влияние, и AI-архитектура, которая закрывает задачи целых отделов — агенты, программирование и автоматизация любых запросов бизнеса, экономя временные и финансовые ресурсы.</p>
+          <p>Внедряю систему контент-завода для предпринимателей, экспертов и блогеров.</p>
+          <p>Живу в нескольких странах, изучаю подходы в России, Америке, Европе и Китае, готовлюсь к поступлению в американскую бизнес-школу.</p>
         </div>
         <div class="speaker-socials">
           <a class="soc-pill" href="https://instagram.com/wikki.shark" target="_blank" rel="noopener" aria-label="Instagram @wikki.shark" title="@wikki.shark">
@@ -1360,18 +1362,17 @@ footer .container { display: flex; align-items: center; justify-content: space-b
       <div class="glass bento-card reveal">
         <div class="bento-num" data-count="100" data-suffix="+">100+</div>
         <div class="bento-t">проектов за 5 лет</div>
-        <p class="bento-p">От локальных запусков до оборота 10 000+ € — Россия и международный рынок</p>
+        <p class="bento-p">Работала с проектами в России и за рубежом — от локальных запусков до международных онлайн-школ</p>
       </div>
       <div class="glass bento-card reveal" data-delay="1">
         <div class="bento-num" data-count="40000" data-prefix="$" data-suffix="+">$40 000+</div>
         <div class="bento-t">оборот за один день</div>
-        <p class="bento-p">Офлайн-тренинг в Москве: 100+ участников из разных стран</p>
+        <p class="bento-p">Организовала офлайн-тренинг в Москве: 100+ участников из разных стран, весь оборот сделан за одно мероприятие</p>
       </div>
       <div class="glass bento-card reveal" data-delay="2">
-        <span class="bento-badge">NDA</span>
-        <div class="bento-num">Выборы</div>
-        <div class="bento-t">digital-команда кандидата в президенты</div>
-        <p class="bento-p">Стратегия и команда на государственном уровне</p>
+        <div class="bento-num" data-count="100000" data-prefix="$" data-suffix="+">$100 000+</div>
+        <div class="bento-t">заработала клиентам</div>
+        <p class="bento-p">Общая выручка проектов, которые я вела как стратег и партнёр по росту</p>
       </div>
     </div>
   </div>
