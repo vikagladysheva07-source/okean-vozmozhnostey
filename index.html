@@ -794,7 +794,21 @@ section { position: relative; padding: 100px 0 120px; overflow: hidden; }
   content: ""; position: absolute; left: -46px; top: 39px; width: 46px; height: 2px;
   background: linear-gradient(90deg, rgba(155,111,232,.6), transparent);
 }
-.t-head { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
+.t-head { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; padding-right: 46px; }
+.t-num {
+  position: absolute; right: 20px; top: 16px;
+  font-size: 34px; font-weight: 900; line-height: 1; letter-spacing: -0.03em;
+  color: var(--purple-br); opacity: .17;
+  transition: opacity .4s ease;
+}
+.t-item:hover .t-num { opacity: .42; }
+.t-take {
+  display: flex; align-items: flex-start; gap: 9px;
+  margin-top: 14px; padding-top: 13px;
+  border-top: 1px solid var(--line);
+  font-size: 13.5px; font-weight: 700; color: var(--purple-br); line-height: 1.45;
+}
+.t-take svg { flex-shrink: 0; margin-top: 3px; filter: drop-shadow(0 0 6px rgba(155,111,232,.6)); }
 .t-icon {
   width: 40px; height: 40px; border-radius: 11px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
@@ -985,9 +999,14 @@ footer .container { display: flex; align-items: center; justify-content: space-b
   .mq-half span { padding: 0 12px; }
   footer .container { flex-direction: column; gap: 6px; text-align: center; }
   .sys-grid { grid-template-columns: 1fr; }
-  .timeline { padding-left: 40px; margin-left: 6px; }
-  .t-item::before { left: -46px; }
-  .t-item::after { left: -34px; width: 34px; }
+  .timeline { padding-left: 32px; margin-left: 4px; }
+  .t-item { padding: 20px 18px; }
+  .t-item::before { left: -38px; }
+  .t-item::after { left: -26px; width: 26px; }
+  .t-num { font-size: 26px; right: 15px; top: 15px; }
+  .t-head { padding-right: 36px; gap: 11px; }
+  .t-item h3 { font-size: 17px; }
+  .t-take { font-size: 13px; }
   .hero-cta .btn { width: 100%; justify-content: center; }
   .header-meta { display: none; }
   .waterline, .iceberg-below { margin-left: -16px; margin-right: -16px; }
@@ -1371,39 +1390,64 @@ footer .container { display: flex; align-items: center; justify-content: space-b
 
     <div class="timeline">
       <div class="t-item glass reveal">
+        <span class="t-num">01</span>
         <div class="t-head">
           <span class="t-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2l8 4-8 4-8-4 8-4z" stroke="#C4A4FF" stroke-width="1.6" stroke-linejoin="round"/><path d="M2 10l8 4 8-4M2 14l8 4 8-4" stroke="#C4A4FF" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
           <h3>Архитектура влияния</h3>
         </div>
-        <p>Как работает система. Принципы, которые масштабируются</p>
+        <p>Разбираем, из чего собирается система, которая работает без твоего круглосуточного участия: приоритеты, рычаги, репутация, окружение. Не теория, а принципы, которые работают в любой нише — от найма до своего дела</p>
+        <div class="t-take">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7.5l3.5 3L12 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Увидишь, в каком месте твоя система буксует и что починить первым
+        </div>
       </div>
       <div class="t-item glass reveal" data-delay="1">
+        <span class="t-num">02</span>
         <div class="t-head">
           <span class="t-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="5" y="5" width="10" height="10" rx="1.6" stroke="#C4A4FF" stroke-width="1.5"/><rect x="8" y="8" width="4" height="4" rx=".8" fill="rgba(196,164,255,.55)"/><path d="M8 1.5v2M12 1.5v2M8 16.5v2M12 16.5v2M1.5 8h2M1.5 12h2M16.5 8h2M16.5 12h2" stroke="#C4A4FF" stroke-width="1.5" stroke-linecap="round"/></svg></span>
           <h3>AI в деле</h3>
         </div>
-        <p>Живая демонстрация — смотришь, как один инструмент закрывает задачи целой команды</p>
+        <p>Работаю на экране в реальном времени: AI разбирает почту, собирает отчёт, планирует день, ведёт переписку. Без кода и без месяцев обучения — показываю, как это выглядит на практике и с чего начать</p>
+        <div class="t-take">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7.5l3.5 3L12 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Поймёшь, какие свои задачи можно отдать машине уже на этой неделе
+        </div>
       </div>
       <div class="t-item glass reveal" data-delay="2">
+        <span class="t-num">03</span>
         <div class="t-head">
           <span class="t-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M17 9.5a6.5 6.5 0 01-9.7 5.6L3 16.5l1.4-4.3A6.5 6.5 0 1117 9.5z" stroke="#C4A4FF" stroke-width="1.6" stroke-linejoin="round"/><path d="M7.5 8.5h5M7.5 11h3" stroke="#C4A4FF" stroke-width="1.5" stroke-linecap="round"/></svg></span>
           <h3>Разборы в зале</h3>
         </div>
-        <p>Практика на реальных ситуациях участников</p>
+        <p>Берём реальные ситуации участников и разбираем вслух: где затык, что делать первым шагом, чего не делать вообще. Работает в обе стороны — учишься и на своём кейсе, и на чужих</p>
+        <div class="t-take">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7.5l3.5 3L12 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Уйдёшь с планом действий под свою ситуацию, а не с общими советами
+        </div>
       </div>
       <div class="t-item glass reveal" data-delay="3">
+        <span class="t-num">04</span>
         <div class="t-head">
           <span class="t-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="6.5" cy="7.5" r="2.6" stroke="#C4A4FF" stroke-width="1.5"/><circle cx="13.8" cy="6.2" r="2.1" stroke="#C4A4FF" stroke-width="1.5"/><path d="M1.8 16.5c.6-2.8 2.2-4.2 4.7-4.2 2.4 0 4 1.4 4.6 4.2M12 14.6c.5-1.9 1.3-2.9 2.5-2.9 1.7 0 2.9 1.2 3.4 3.5" stroke="#C4A4FF" stroke-width="1.5" stroke-linecap="round"/></svg></span>
           <h3>Нетворкинг</h3>
         </div>
-        <p>Знакомства в формате, где каждый представляет то, что строит</p>
+        <p>Не «походите, познакомьтесь», а структура: каждый коротко говорит, что строит и что ищет. Сразу видно, с кем продолжать разговор — без обмена визитками на всякий случай</p>
+        <div class="t-take">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7.5l3.5 3L12 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Найдёшь людей для партнёрств, обмена опытом и совместных проектов
+        </div>
       </div>
       <div class="t-item glass reveal" data-delay="4">
+        <span class="t-num">05</span>
         <div class="t-head">
           <span class="t-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 2h10l-3.4 6.2a3.4 3.4 0 01-3.2 0L5 2z" stroke="#C4A4FF" stroke-width="1.6" stroke-linejoin="round"/><path d="M10 9v6.5M6.5 18h7" stroke="#C4A4FF" stroke-width="1.6" stroke-linecap="round"/><circle cx="15.5" cy="3" r=".9" fill="#C4A4FF"/><circle cx="17" cy="6" r=".7" fill="#C4A4FF"/></svg></span>
           <h3>Афтепати</h3>
         </div>
-        <p>Продолжение в неформальном формате</p>
+        <p>Продолжение без сцены и регламента. Самые полезные разговоры обычно начинаются именно здесь — когда официальная часть закончилась, а люди остались</p>
+        <div class="t-take">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7.5l3.5 3L12 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Договоришься о конкретных шагах с теми, кто зацепил на разборах
+        </div>
       </div>
     </div>
   </div>
