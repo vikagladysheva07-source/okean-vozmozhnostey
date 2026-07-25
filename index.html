@@ -732,7 +732,7 @@ section { position: relative; padding: 100px 0 120px; overflow: hidden; }
 
 /* ============ SPEAKER ============ */
 .speaker { padding: 80px 0 90px; background: linear-gradient(180deg, var(--black), #0a0916 60%, var(--black)); }
-.speaker-top { display: grid; grid-template-columns: 1fr 230px; gap: 40px; align-items: start; margin-bottom: 40px; }
+.speaker-top { margin-bottom: 40px; }
 .speaker-name { margin: 16px 0 12px; text-transform: uppercase; }
 .speaker-role { color: var(--idd); line-height: 1.8; }
 .speaker-quote {
@@ -742,8 +742,8 @@ section { position: relative; padding: 100px 0 120px; overflow: hidden; }
 }
 .speaker-photo {
   position: relative; border-radius: 16px; overflow: hidden;
-  aspect-ratio: 4 / 5; max-width: 230px; justify-self: end; width: 100%;
-  margin-top: 6px;
+  aspect-ratio: 4 / 5; width: 230px;
+  float: right; margin: 8px 0 16px 28px;
   background: linear-gradient(150deg, #171226, #0a0a14 65%);
   border: 1px solid rgba(155,111,232,.24);
   box-shadow: 0 30px 70px -30px rgba(0,0,0,.9), 0 0 60px -18px rgba(155,111,232,.4);
@@ -1027,8 +1027,7 @@ footer .container { display: flex; align-items: center; justify-content: space-b
     0%, 100% { transform: scale(.52) translateY(0) rotate(-1.5deg); }
     50% { transform: scale(.52) translateY(-12px) rotate(1.5deg); }
   }
-  .speaker-top { grid-template-columns: 1fr; gap: 26px; }
-  .speaker-photo { max-width: 210px; justify-self: start; margin-top: 0; }
+  .speaker-photo { width: 126px; margin: 6px 0 10px 14px; border-radius: 13px; }
   .results-grid { gap: 56px 80px; }
 }
 @media (max-width: 600px) {
@@ -1411,9 +1410,11 @@ footer .container { display: flex; align-items: center; justify-content: space-b
         <h2 class="display-l grad-text speaker-name">Виктория Гладышева</h2>
         <p class="label speaker-role">Маркетолог-стратег · Архитектор систем роста · Основатель WIKKI.OCEAN</p>
         <p class="speaker-quote">«Большой стратегии больше не нужна большая команда. Нужна правильная система»</p>
+        <div class="speaker-photo reveal" data-delay="1"></div>
         <div class="speaker-story">
           <p>Первый бизнес открыла в 12 лет. К 20 годам за спиной более 5 лет опыта в маркетинге и <b>100+ проектов</b> на российском и международном уровне: от локальных запусков и офлайн-мероприятий до европейских онлайн-школ и <b>руководства digital-командой кандидата в президенты</b>.</p>
-          <p>Сейчас открываю свою международную компанию <b>WIKKI.OCEAN</b>. Верю, что потенциал человека равен потенциалу океана, а раскрыть его помогает система: маркетинг, который строит влияние, и AI-архитектура, которая закрывает задачи целых отделов — агенты, программирование и автоматизация любых запросов бизнеса, экономя временные и финансовые ресурсы.</p>
+          <p>Сейчас открываю свою международную компанию <b>WIKKI.OCEAN</b>. Верю, что потенциал человека равен потенциалу океана — а раскрыть его помогает система.</p>
+          <p>Эта система — маркетинг, который строит влияние, и <b>AI-архитектура</b>, которая закрывает задачи целых отделов: агенты, программирование, автоматизация любых запросов. Всё это экономит временные и финансовые ресурсы.</p>
           <p>Изучаю подходы в России, Америке, Европе и Китае — лучшее из них внедряю в свои проекты и проекты клиентов. Готовлюсь к поступлению в американскую бизнес-школу.</p>
         </div>
         <div class="speaker-socials">
@@ -1425,7 +1426,6 @@ footer .container { display: flex; align-items: center; justify-content: space-b
           </a>
         </div>
       </div>
-      <div class="speaker-photo reveal" data-delay="1"></div>
     </div>
 
     <div class="bento">
@@ -1469,7 +1469,7 @@ footer .container { display: flex; align-items: center; justify-content: space-b
           <span class="t-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2l8 4-8 4-8-4 8-4z" stroke="#C4A4FF" stroke-width="1.6" stroke-linejoin="round"/><path d="M2 10l8 4 8-4M2 14l8 4 8-4" stroke="#C4A4FF" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
           <h3>Архитектура влияния</h3>
         </div>
-        <p>Из чего складывается влияние: репутация, экспертность, окружение, доступ к решениям. Разбираем, как выстроить его системно — и как AI усиливает каждый элемент: держит регулярность, снимает рутину, позволяет закрывать объём, который раньше требовал команды. Влияние перестаёт зависеть от твоего личного ресурса и начинает масштабироваться</p>
+        <p>Как создаётся влияние в жизни и работе — и какую роль в этом играет AI. Разбираем, из чего оно складывается: репутация, экспертность, окружение. И как AI масштабирует каждый элемент: держит регулярность, снимает рутину и закрывает объём, который раньше требовал целой команды</p>
         <div class="t-take">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7.5l3.5 3L12 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Поймёшь, из каких элементов собрать своё влияние и где подключить AI
