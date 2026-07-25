@@ -507,9 +507,12 @@ section { position: relative; padding: 100px 0 120px; overflow: hidden; }
   -webkit-text-fill-color: transparent;
   filter: drop-shadow(0 0 16px rgba(155,111,232,.35));
 }
-.pain-list { display: flex; flex-direction: column; }
+.pain-list {
+  display: flex; flex-direction: column;
+  max-width: 620px; margin: 0 auto; text-align: left;
+}
 .pain-row {
-  display: flex; align-items: center; justify-content: center; gap: 14px;
+  display: flex; align-items: center; gap: 14px;
   padding: 13px 0; border-bottom: 1px solid var(--line);
 }
 .pain-row:last-child { border-bottom: none; }
@@ -919,32 +922,57 @@ footer .container { display: flex; align-items: center; justify-content: space-b
 .footer-phrase { color: var(--idd); font-style: italic; font-size: 12.5px; }
 .footer-copy { font-size: 11px; color: var(--idd); }
 
-/* соцсети спикера */
-.speaker-socials { display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap; }
+/* соцсети спикера — премиальные круглые значки */
+.speaker-socials { display: flex; gap: 12px; margin-top: 26px; }
 .soc-pill {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 9px 18px; border-radius: 100px;
-  font-size: 13px; font-weight: 700; color: var(--purple-br);
-  background: rgba(155,111,232,.08); border: 1px solid rgba(155,111,232,.35);
-  transition: background .3s ease, border-color .3s ease, transform .3s ease, color .3s ease;
+  position: relative;
+  width: 46px; height: 46px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--purple-br);
+  background: linear-gradient(180deg, rgba(30,18,58,.7), rgba(8,6,16,.7));
+  border: 1px solid rgba(155,111,232,.34);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  box-shadow:
+    inset 0 1px 0 rgba(196,164,255,.22),
+    0 12px 26px -14px rgba(0,0,0,.85),
+    0 0 26px -12px rgba(155,111,232,.5);
+  transition: transform .35s cubic-bezier(.22,1,.36,1), border-color .35s ease, box-shadow .35s ease, color .35s ease;
 }
 .soc-pill:hover {
-  background: rgba(155,111,232,.16); border-color: rgba(155,111,232,.6);
-  transform: translateY(-2px); color: #fff;
+  transform: translateY(-3px);
+  color: #fff;
+  border-color: rgba(196,164,255,.75);
+  box-shadow:
+    inset 0 1px 0 rgba(196,164,255,.3),
+    0 16px 30px -14px rgba(0,0,0,.85),
+    0 0 38px -10px rgba(155,111,232,.8);
 }
-.soc-pill svg { flex-shrink: 0; }
+.soc-pill svg { flex-shrink: 0; filter: drop-shadow(0 0 8px rgba(155,111,232,.55)); }
 
 /* ============ MOBILE ============ */
 @media (max-width: 900px) {
-  .hud { display: none; }
+  /* HUD-панели уходят из абсолютного позиционирования в поток под CTA */
+  .hero { flex-direction: column; justify-content: center; gap: 28px; min-height: auto; padding: 96px 0 76px; }
+  .hero-inner { order: 1; }
+  .hud {
+    order: 2; position: static; left: auto; right: auto; top: auto;
+    width: calc(100% - 48px); max-width: 340px; margin: 0 auto;
+    animation: none; padding: 15px 16px;
+  }
+  .hud-right { order: 3; }
+  .hud-metric { font-size: 20px; }
+  .hud-spark { width: 100%; height: 30px; }
+  .scroll-ind { display: none; }
   .speaker-top { grid-template-columns: 1fr; gap: 32px; }
   .speaker-photo { max-width: 300px; justify-self: start; }
   .results-grid { gap: 56px 80px; }
 }
 @media (max-width: 600px) {
   section { padding: 60px 0 80px; }
-  .hero { min-height: 100svh; padding: 100px 0 90px; }
+  .hero { padding: 88px 0 68px; gap: 22px; }
   .section-head { margin-bottom: 44px; }
+  .problem-quote { font-size: 20px; letter-spacing: -0.02em; }
+  .final-sub { font-size: 13.5px; letter-spacing: -0.01em; white-space: nowrap; }
   .results-grid { grid-template-columns: 1fr; gap: 20px; }
   .result-card, .result-card:nth-child(odd), .result-card:nth-child(even) { transform: none; }
   .results-connectors, .center-node { display: none; }
@@ -965,6 +993,7 @@ footer .container { display: flex; align-items: center; justify-content: space-b
   .header-meta { display: none; }
   .waterline, .iceberg-below { margin-left: -16px; margin-right: -16px; }
   .cube-wrap.lg { display: none; }
+  .hero .cube-wrap { display: none; }
 }
 </style>
 </head>
@@ -1287,13 +1316,11 @@ footer .container { display: flex; align-items: center; justify-content: space-b
         <p class="label speaker-role">Маркетолог-стратег · Архитектор систем роста · Основатель WIKKI.OCEAN</p>
         <p class="speaker-quote">«Большой стратегии больше не нужна большая команда. Нужна правильная система»</p>
         <div class="speaker-socials">
-          <a class="soc-pill" href="https://instagram.com/wikki.shark" target="_blank" rel="noopener">
-            <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="1.5" width="13" height="13" rx="4" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="8" r="3.2" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="4" r="1" fill="currentColor"/></svg>
-            @wikki.shark
+          <a class="soc-pill" href="https://instagram.com/wikki.shark" target="_blank" rel="noopener" aria-label="Instagram @wikki.shark" title="@wikki.shark">
+            <svg width="19" height="19" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="1.5" width="13" height="13" rx="4" stroke="currentColor" stroke-width="1.4"/><circle cx="8" cy="8" r="3.2" stroke="currentColor" stroke-width="1.4"/><circle cx="11.9" cy="4.1" r="1" fill="currentColor"/></svg>
           </a>
-          <a class="soc-pill" href="https://t.me/shark_wikki" target="_blank" rel="noopener">
-            <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M14.5 1.8L1.8 7c-.5.2-.5.9 0 1.1l3.1 1.1 1.2 3.8c.2.5.8.6 1.1.2l1.7-1.9 3.3 2.4c.4.3 1 .1 1.1-.4l2-10.7c.1-.6-.4-1-.8-.8z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M5 9.2l8.5-6.4-6.7 7.2v2.6" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg>
-            @shark_wikki
+          <a class="soc-pill" href="https://t.me/shark_wikki" target="_blank" rel="noopener" aria-label="Telegram @shark_wikki" title="@shark_wikki">
+            <svg width="19" height="19" viewBox="0 0 16 16" fill="none"><path d="M14.5 1.8L1.8 7c-.5.2-.5.9 0 1.1l3.1 1.1 1.2 3.8c.2.5.8.6 1.1.2l1.7-1.9 3.3 2.4c.4.3 1 .1 1.1-.4l2-10.7c.1-.6-.4-1-.8-.8z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M5 9.2l8.5-6.4-6.7 7.2v2.6" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg>
           </a>
         </div>
       </div>
@@ -1419,7 +1446,6 @@ footer .container { display: flex; align-items: center; justify-content: space-b
           <li>Два полных места на одну оплату</li>
           <li>Партнёр, коллега или друг — на выбор</li>
           <li>Всё из тарифа «Волна»</li>
-          <li>Те, кто идут вдвоём, доходят до конца</li>
         </ul>
         <a href="https://link.payform.ru/?paymentLinkId=54bb9463-f266-4021-843c-064af33ca201" target="_blank" rel="noopener" class="btn btn-primary">Взять два билета</a>
       </article>
@@ -1469,7 +1495,7 @@ footer .container { display: flex; align-items: center; justify-content: space-b
 <footer>
   <div class="container">
     <img class="footer-logo-img" src="wikki-logo-footer.png" alt="WIKKI.OCEAN">
-    <p class="footer-phrase">Каждый человек — это океан потенциала</p>
+    <p class="footer-phrase">Потенциал человека = потенциал океана</p>
     <p class="footer-copy">© 2026 WIKKI.OCEAN</p>
   </div>
 </footer>
