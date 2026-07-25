@@ -728,14 +728,19 @@ section { position: relative; padding: 100px 0 120px; overflow: hidden; }
               radial-gradient(ellipse at 70% 10%, rgba(155,111,232,.18), transparent 55%);
 }
 
+/* история спикера */
+.speaker-story { margin-top: 22px; }
+.speaker-story p { font-size: 15.5px; color: var(--id2); line-height: 1.65; margin-bottom: 13px; }
+.speaker-story p:last-child { margin-bottom: 0; }
+.speaker-story b { color: var(--id); font-weight: 700; }
+
 /* bento-сетка достижений */
-.bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+.bento { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
 .bento-card {
-  grid-column: span 2; position: relative; padding: 22px 22px 20px;
+  position: relative; padding: 22px 22px 20px;
   transition: transform .45s cubic-bezier(.22,1,.36,1), border-color .45s ease, box-shadow .45s ease;
   overflow: hidden;
 }
-.bento-card.wide { grid-column: span 3; }
 .bento-card::after {
   content: ""; position: absolute; right: -30px; bottom: -30px;
   width: 110px; height: 110px; border-radius: 50%;
@@ -992,8 +997,9 @@ footer .container { display: flex; align-items: center; justify-content: space-b
   .price-grid { grid-template-columns: 1fr; gap: 26px; }
   .price-card.popular { transform: none; }
   .price-card.popular:hover { transform: translateY(-8px); }
-  .bento { grid-template-columns: 1fr 1fr; gap: 10px; }
-  .bento-card, .bento-card.wide { grid-column: span 2; padding: 18px; }
+  .bento { grid-template-columns: 1fr; gap: 10px; }
+  .bento-card { padding: 18px; }
+  .speaker-story p { font-size: 14.5px; }
   .countdown { gap: 8px; }
   .cd-cell { width: auto; flex: 1; max-width: 92px; padding: 14px 4px 12px; }
   .mq-half span { padding: 0 12px; }
@@ -1333,6 +1339,11 @@ footer .container { display: flex; align-items: center; justify-content: space-b
         <h2 class="display-l grad-text speaker-name">Виктория Гладышева</h2>
         <p class="label speaker-role">Маркетолог-стратег · Архитектор систем роста · Основатель WIKKI.OCEAN</p>
         <p class="speaker-quote">«Большой стратегии больше не нужна большая команда. Нужна правильная система»</p>
+        <div class="speaker-story">
+          <p>Первые деньги заработала в 12 лет. К 20 за спиной больше <b>100 проектов</b>: локальные запуски, международные онлайн-школы, digital-кампания кандидата в президенты.</p>
+          <p>Сейчас строю системы роста — маркетинг, операционка и AI-агенты, которые закрывают объём работы целых отделов. Живу в нескольких странах, изучаю подходы в России, Америке, Европе и Китае, готовлюсь к поступлению в американскую бизнес-школу.</p>
+          <p>Платформы и сайты собираю сама, без подрядчиков: <b>система остаётся у клиента</b> с полным доступом и без ежемесячных платежей.</p>
+        </div>
         <div class="speaker-socials">
           <a class="soc-pill" href="https://instagram.com/wikki.shark" target="_blank" rel="noopener" aria-label="Instagram @wikki.shark" title="@wikki.shark">
             <svg width="19" height="19" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="1.5" width="13" height="13" rx="4" stroke="currentColor" stroke-width="1.4"/><circle cx="8" cy="8" r="3.2" stroke="currentColor" stroke-width="1.4"/><circle cx="11.9" cy="4.1" r="1" fill="currentColor"/></svg>
@@ -1357,20 +1368,10 @@ footer .container { display: flex; align-items: center; justify-content: space-b
         <p class="bento-p">Офлайн-тренинг в Москве: 100+ участников из разных стран</p>
       </div>
       <div class="glass bento-card reveal" data-delay="2">
-        <div class="bento-num">1 млн ₽</div>
-        <div class="bento-t">вложено в образование</div>
-        <p class="bento-p">Россия, Америка, Европа, Китай. Подготовка к американской бизнес-школе</p>
-      </div>
-      <div class="glass bento-card wide reveal" data-delay="3">
         <span class="bento-badge">NDA</span>
         <div class="bento-num">Выборы</div>
-        <div class="bento-t">digital-команда кандидата в президенты страны X</div>
-        <p class="bento-p">Стратегия, команда, результат на государственном уровне</p>
-      </div>
-      <div class="glass bento-card wide reveal" data-delay="4">
-        <div class="bento-num">Под ключ</div>
-        <div class="bento-t">платформы и сайты без зависимости от подрядчиков</div>
-        <p class="bento-p">Система остаётся у клиента с полным доступом — без ежемесячных платежей</p>
+        <div class="bento-t">digital-команда кандидата в президенты</div>
+        <p class="bento-p">Стратегия и команда на государственном уровне</p>
       </div>
     </div>
   </div>
@@ -1384,7 +1385,6 @@ footer .container { display: flex; align-items: center; justify-content: space-b
   </div>
   <div class="container">
     <div class="section-head reveal">
-      <span class="label">Один день · пять этапов</span>
       <h2 class="display-l grad-text">Программа</h2>
     </div>
 
@@ -1395,10 +1395,10 @@ footer .container { display: flex; align-items: center; justify-content: space-b
           <span class="t-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2l8 4-8 4-8-4 8-4z" stroke="#C4A4FF" stroke-width="1.6" stroke-linejoin="round"/><path d="M2 10l8 4 8-4M2 14l8 4 8-4" stroke="#C4A4FF" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
           <h3>Архитектура влияния</h3>
         </div>
-        <p>Разбираем, из чего собирается система, которая работает без твоего круглосуточного участия: приоритеты, рычаги, репутация, окружение. Не теория, а принципы, которые работают в любой нише — от найма до своего дела</p>
+        <p>Из чего складывается влияние: репутация, экспертность, окружение, доступ к решениям. Разбираем, как выстроить его системно — и как AI усиливает каждый элемент: держит регулярность, снимает рутину, позволяет закрывать объём, который раньше требовал команды. Влияние перестаёт зависеть от твоего личного ресурса и начинает масштабироваться</p>
         <div class="t-take">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7.5l3.5 3L12 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Увидишь, в каком месте твоя система буксует и что починить первым
+          Поймёшь, из каких элементов собрать своё влияние и где подключить AI
         </div>
       </div>
       <div class="t-item glass reveal" data-delay="1">
@@ -1407,10 +1407,10 @@ footer .container { display: flex; align-items: center; justify-content: space-b
           <span class="t-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="5" y="5" width="10" height="10" rx="1.6" stroke="#C4A4FF" stroke-width="1.5"/><rect x="8" y="8" width="4" height="4" rx=".8" fill="rgba(196,164,255,.55)"/><path d="M8 1.5v2M12 1.5v2M8 16.5v2M12 16.5v2M1.5 8h2M1.5 12h2M16.5 8h2M16.5 12h2" stroke="#C4A4FF" stroke-width="1.5" stroke-linecap="round"/></svg></span>
           <h3>AI в деле</h3>
         </div>
-        <p>Работаю на экране в реальном времени: AI разбирает почту, собирает отчёт, планирует день, ведёт переписку. Без кода и без месяцев обучения — показываю, как это выглядит на практике и с чего начать</p>
+        <p>Показываю конкретные процессы, где AI работает на меня и на моих клиентов: обработка входящих запросов, отчётность, аналитика, подготовка материалов, операционные задачи. Разбираем на реальных примерах — что именно передано машине, как это устроено и какой результат это даёт</p>
         <div class="t-take">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7.5l3.5 3L12 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Поймёшь, какие свои задачи можно отдать машине уже на этой неделе
+          Увидишь готовые процессы, которые можно перенести в своё дело
         </div>
       </div>
       <div class="t-item glass reveal" data-delay="2">
