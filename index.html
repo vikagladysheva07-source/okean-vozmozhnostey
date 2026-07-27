@@ -865,7 +865,10 @@ section { position: relative; padding: 100px 0 120px; overflow: hidden; }
     radial-gradient(ellipse 55% 45% at 50% 40%, rgba(91,47,190,.15), transparent 72%),
     var(--black);
 }
-.price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: stretch; }
+.price-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px;
+  align-items: stretch; max-width: 780px; margin: 0 auto;
+}
 .price-card {
   position: relative; padding: 36px 30px; display: flex; flex-direction: column;
   transition: transform .45s cubic-bezier(.22,1,.36,1), border-color .45s ease, box-shadow .45s ease;
@@ -1547,12 +1550,12 @@ footer .container { display: flex; align-items: center; justify-content: space-b
     <div class="section-head reveal">
       <span class="label">Участие</span>
       <h2 class="display-l grad-text">Выбери формат</h2>
-      <div class="price-notice"><i></i>Повышение цен с 1 августа</div>
+      <div class="price-notice"><i></i>Повышение цен со 2 августа</div>
     </div>
 
     <div class="price-grid">
       <article class="glass price-card reveal">
-        <div class="price-name">Волна</div>
+        <div class="price-name">Стандарт</div>
         <span class="price-old">5 777 ₽</span>
         <div class="price-value">2 777 ₽</div>
         <div class="price-note">один билет</div>
@@ -1567,33 +1570,18 @@ footer .container { display: flex; align-items: center; justify-content: space-b
 
       <article class="glass price-card popular reveal" data-delay="1">
         <span class="price-badge badge-popular">Популярный выбор</span>
-        <div class="price-name">Стая</div>
+        <div class="price-name">1 + 1</div>
         <span class="price-old">6 777 ₽</span>
         <div class="price-value">3 777 ₽</div>
         <div class="price-note">за двоих</div>
         <ul class="price-list">
           <li>Два полных места на одну оплату</li>
           <li>Партнёр, коллега или друг — на выбор</li>
-          <li>Всё из тарифа «Волна»</li>
+          <li>Всё, что входит в «Стандарт»</li>
         </ul>
         <a href="https://link.payform.ru/?paymentLinkId=54bb9463-f266-4021-843c-064af33ca201" target="_blank" rel="noopener" class="btn btn-primary">Взять два билета</a>
       </article>
 
-      <article class="glass price-card reveal" data-delay="2">
-        <span class="price-badge badge-scarce"><i></i>Осталось 10 мест</span>
-        <div class="price-name">Глубина</div>
-        <span class="price-old">10 777 ₽</span>
-        <div class="price-value">7 777 ₽</div>
-        <div class="price-note">VIP-формат</div>
-        <ul class="price-list">
-          <li>VIP-место в зале</li>
-          <li>Всё из тарифа «Волна»</li>
-          <li>Закрытый мастермайнд в узком кругу — разбираем именно твою ситуацию</li>
-          <li>Личная стратегия: что делать в первую очередь и на что не тратить время</li>
-          <li>Прямой доступ ко мне и к участникам, которые уже строят системы</li>
-        </ul>
-        <a href="https://link.payform.ru/?paymentLinkId=d72811e8-56e1-4dc5-b436-ffc6ad863053" target="_blank" rel="noopener" class="btn btn-ghost">Занять место</a>
-      </article>
     </div>
 
     <p class="price-contact reveal">По всем вопросам пиши в личные сообщения:
