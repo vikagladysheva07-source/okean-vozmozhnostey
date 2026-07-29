@@ -54,7 +54,7 @@ h1, h2, h3, .display-xl, .display-l, .title,
 .price-value, .bento-num, .final-date, .date-line { text-wrap: balance; }
 
 p, li, .want-text, .bento-p, .sys-card span, .t-take,
-.path-what, .hero-sub, .final-sub, .aud-check { text-wrap: pretty; }
+.cred p, .hero-sub, .final-sub, .aud-check { text-wrap: pretty; }
 
 img { max-width: 100%; display: block; }
 a { text-decoration: none; color: inherit; }
@@ -768,29 +768,30 @@ section { position: relative; padding: 100px 0 120px; overflow: hidden; }
               radial-gradient(ellipse at 70% 10%, rgba(155,111,232,.18), transparent 55%);
 }
 
-/* путь спикера — структурный таймлайн */
-.speaker-story { margin-top: 26px; position: relative; padding-left: 22px; }
-.speaker-story::before {
-  content: ""; position: absolute; left: 3px; top: 10px; bottom: 10px; width: 1.5px;
-  background: linear-gradient(180deg, transparent, rgba(196,164,255,.55) 12%, rgba(155,111,232,.5) 85%, transparent);
-  box-shadow: 0 0 12px rgba(155,111,232,.4);
+/* регалии спикера — плашки как в программке конференции */
+.creds { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
+.cred {
+  display: flex; align-items: flex-start; gap: 13px;
+  padding: 14px 20px; border-radius: 12px;
+  background: linear-gradient(180deg, rgba(26,16,48,.5), rgba(8,6,16,.55));
+  border: 1px solid rgba(155,111,232,.2);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  box-shadow: inset 0 1px 0 rgba(196,164,255,.12), 0 16px 34px -26px rgba(0,0,0,.9);
+  transition: transform .4s cubic-bezier(.22,1,.36,1), border-color .4s ease, box-shadow .4s ease;
 }
-.path-row { position: relative; padding: 0 0 20px 0; }
-.path-row:last-child { padding-bottom: 0; }
-.path-row::before {
-  content: ""; position: absolute; left: -22.5px; top: 7px;
-  width: 9px; height: 9px; border-radius: 50%;
-  background: var(--black); border: 2px solid var(--purple-br);
-  box-shadow: 0 0 12px rgba(155,111,232,.9);
+.cred:hover {
+  transform: translateX(6px);
+  border-color: rgba(196,164,255,.45);
+  box-shadow: inset 0 1px 0 rgba(196,164,255,.2), 0 20px 40px -24px rgba(0,0,0,.9), 0 0 36px -14px rgba(155,111,232,.4);
 }
-.path-when {
-  display: inline-block; margin-bottom: 5px;
-  font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
-  color: var(--purple-br); text-shadow: 0 0 14px rgba(155,111,232,.4);
+.cred-mark {
+  width: 9px; height: 9px; flex-shrink: 0; margin-top: 7px;
+  transform: rotate(45deg); border-radius: 2px;
+  background: linear-gradient(135deg, #E8DFFF, var(--purple));
+  box-shadow: 0 0 12px rgba(155,111,232,.8);
 }
-.path-what { font-size: 15px; color: var(--id2); line-height: 1.62; }
-.path-what b { color: var(--id); font-weight: 700; }
-.path-what .acc { font-style: normal; font-weight: 700; color: var(--purple-br); }
+.cred p { font-size: 15px; color: var(--id2); line-height: 1.55; }
+.cred p b { color: var(--id); font-weight: 700; }
 
 /* bento-сетка достижений */
 .bento { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
@@ -1179,8 +1180,8 @@ footer .container { display: flex; align-items: center; justify-content: space-b
   .want-text { font-size: 14.5px; }
   .bento { grid-template-columns: 1fr; gap: 10px; }
   .bento-card { padding: 18px; }
-  .path-what { font-size: 14.5px; }
-  .speaker-story { padding-left: 20px; }
+  .cred { padding: 13px 16px; gap: 11px; }
+  .cred p { font-size: 14.5px; }
   .countdown { gap: 8px; }
   .cd-cell { width: auto; flex: 1; max-width: 92px; padding: 14px 4px 12px; }
   .mq-half span { padding: 0 12px; }
@@ -1512,23 +1513,12 @@ footer .container { display: flex; align-items: center; justify-content: space-b
         <h2 class="display-l grad-text speaker-name">Виктория Гладышева</h2>
         <p class="label speaker-role">Маркетолог-стратег · Архитектор систем роста · Основатель WIKKI.OCEAN</p>
         <div class="speaker-photo reveal" data-delay="1"></div>
-        <div class="speaker-story">
-          <div class="path-row">
-            <span class="path-when">12 лет</span>
-            <p class="path-what">Открыла <b>первый бизнес</b></p>
-          </div>
-          <div class="path-row">
-            <span class="path-when">К 20 годам</span>
-            <p class="path-what">Более 5 лет в маркетинге и <span class="acc">100+ проектов</span> в России и за рубежом: от локальных запусков и офлайн-мероприятий до европейских онлайн-школ и <b>руководства digital-командой кандидата в президенты</b></p>
-          </div>
-          <div class="path-row">
-            <span class="path-when">Сейчас</span>
-            <p class="path-what">Открываю международную компанию <span class="acc">WIKKI.OCEAN</span>: маркетинг, который строит влияние, и <b>AI-архитектура</b>, которая закрывает задачи целых отделов — агенты, программирование, автоматизация любых запросов бизнеса</p>
-          </div>
-          <div class="path-row">
-            <span class="path-when">Параллельно</span>
-            <p class="path-what">Изучаю подходы в <b>России, Америке, Европе и Китае</b>, лучшее внедряю в свои проекты и проекты клиентов. Готовлюсь к поступлению в американскую бизнес-школу</p>
-          </div>
+        <div class="creds">
+          <div class="cred reveal"><i class="cred-mark"></i><p><b>Основатель WIKKI.OCEAN</b> — маркетинг, который строит влияние, и AI-архитектура, закрывающая задачи целых отделов</p></div>
+          <div class="cred reveal"><i class="cred-mark"></i><p><b>100+ проектов за 5 лет</b> в России и за рубежом: от локальных запусков до европейских онлайн-школ</p></div>
+          <div class="cred reveal"><i class="cred-mark"></i><p>Руководила <b>digital-командой кандидата в президенты</b></p></div>
+          <div class="cred reveal"><i class="cred-mark"></i><p>Первый бизнес открыла <b>в 12 лет</b>, более 5 лет в маркетинге</p></div>
+          <div class="cred reveal"><i class="cred-mark"></i><p>Изучает подходы в <b>России, Америке, Европе и Китае</b>, готовится к поступлению в американскую бизнес-школу</p></div>
         </div>
         <div class="speaker-socials">
           <a class="soc-pill" href="https://instagram.com/wikki.shark" target="_blank" rel="noopener" aria-label="Instagram @wikki.shark" title="@wikki.shark">
