@@ -54,7 +54,7 @@ h1, h2, h3, .display-xl, .display-l, .title,
 .price-value, .bento-num, .final-date, .date-line { text-wrap: balance; }
 
 p, li, .want-text, .bento-p, .sys-card span, .t-take,
-.speaker-story p, .hero-sub, .final-sub, .aud-check { text-wrap: pretty; }
+.path-what, .hero-sub, .final-sub, .aud-check { text-wrap: pretty; }
 
 img { max-width: 100%; display: block; }
 a { text-decoration: none; color: inherit; }
@@ -768,15 +768,29 @@ section { position: relative; padding: 100px 0 120px; overflow: hidden; }
               radial-gradient(ellipse at 70% 10%, rgba(155,111,232,.18), transparent 55%);
 }
 
-/* история спикера */
-.speaker-story { margin-top: 22px; }
-.speaker-story p { font-size: 15.5px; color: var(--id2); line-height: 1.7; margin-bottom: 15px; }
-.speaker-story p:last-child { margin-bottom: 0; }
-.speaker-story b { color: var(--id); font-weight: 700; }
-.speaker-story .acc {
-  font-style: normal; font-weight: 700; color: var(--purple-br);
-  text-shadow: 0 0 16px rgba(155,111,232,.35);
+/* путь спикера — структурный таймлайн */
+.speaker-story { margin-top: 26px; position: relative; padding-left: 22px; }
+.speaker-story::before {
+  content: ""; position: absolute; left: 3px; top: 10px; bottom: 10px; width: 1.5px;
+  background: linear-gradient(180deg, transparent, rgba(196,164,255,.55) 12%, rgba(155,111,232,.5) 85%, transparent);
+  box-shadow: 0 0 12px rgba(155,111,232,.4);
 }
+.path-row { position: relative; padding: 0 0 20px 0; }
+.path-row:last-child { padding-bottom: 0; }
+.path-row::before {
+  content: ""; position: absolute; left: -22.5px; top: 7px;
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--black); border: 2px solid var(--purple-br);
+  box-shadow: 0 0 12px rgba(155,111,232,.9);
+}
+.path-when {
+  display: inline-block; margin-bottom: 5px;
+  font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--purple-br); text-shadow: 0 0 14px rgba(155,111,232,.4);
+}
+.path-what { font-size: 15px; color: var(--id2); line-height: 1.62; }
+.path-what b { color: var(--id); font-weight: 700; }
+.path-what .acc { font-style: normal; font-weight: 700; color: var(--purple-br); }
 
 /* bento-сетка достижений */
 .bento { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
@@ -1165,7 +1179,8 @@ footer .container { display: flex; align-items: center; justify-content: space-b
   .want-text { font-size: 14.5px; }
   .bento { grid-template-columns: 1fr; gap: 10px; }
   .bento-card { padding: 18px; }
-  .speaker-story p { font-size: 14.5px; }
+  .path-what { font-size: 14.5px; }
+  .speaker-story { padding-left: 20px; }
   .countdown { gap: 8px; }
   .cd-cell { width: auto; flex: 1; max-width: 92px; padding: 14px 4px 12px; }
   .mq-half span { padding: 0 12px; }
@@ -1484,6 +1499,68 @@ footer .container { display: flex; align-items: center; justify-content: space-b
   </div>
 </section>
 
+<!-- ============ SPEAKER ============ -->
+<section class="speaker" id="speaker">
+  <div class="shard" style="width:16px;height:16px;top:8%;left:8%;animation-duration:11s;"></div>
+  <div class="shark" style="width:120px; top:78%; animation-duration:66s; animation-delay:-30s; opacity:.24;" aria-hidden="true">
+    <img src="shark-neon.png" alt="" loading="lazy">
+  </div>
+  <div class="container">
+    <div class="speaker-top">
+      <div class="reveal">
+        <span class="label">Спикер</span>
+        <h2 class="display-l grad-text speaker-name">Виктория Гладышева</h2>
+        <p class="label speaker-role">Маркетолог-стратег · Архитектор систем роста · Основатель WIKKI.OCEAN</p>
+        <div class="speaker-photo reveal" data-delay="1"></div>
+        <div class="speaker-story">
+          <div class="path-row">
+            <span class="path-when">12 лет</span>
+            <p class="path-what">Открыла <b>первый бизнес</b></p>
+          </div>
+          <div class="path-row">
+            <span class="path-when">К 20 годам</span>
+            <p class="path-what">Более 5 лет в маркетинге и <span class="acc">100+ проектов</span> в России и за рубежом: от локальных запусков и офлайн-мероприятий до европейских онлайн-школ и <b>руководства digital-командой кандидата в президенты</b></p>
+          </div>
+          <div class="path-row">
+            <span class="path-when">Сейчас</span>
+            <p class="path-what">Открываю международную компанию <span class="acc">WIKKI.OCEAN</span>: маркетинг, который строит влияние, и <b>AI-архитектура</b>, которая закрывает задачи целых отделов — агенты, программирование, автоматизация любых запросов бизнеса</p>
+          </div>
+          <div class="path-row">
+            <span class="path-when">Параллельно</span>
+            <p class="path-what">Изучаю подходы в <b>России, Америке, Европе и Китае</b>, лучшее внедряю в свои проекты и проекты клиентов. Готовлюсь к поступлению в американскую бизнес-школу</p>
+          </div>
+        </div>
+        <div class="speaker-socials">
+          <a class="soc-pill" href="https://instagram.com/wikki.shark" target="_blank" rel="noopener" aria-label="Instagram @wikki.shark" title="@wikki.shark">
+            <svg width="19" height="19" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="1.5" width="13" height="13" rx="4" stroke="currentColor" stroke-width="1.4"/><circle cx="8" cy="8" r="3.2" stroke="currentColor" stroke-width="1.4"/><circle cx="11.9" cy="4.1" r="1" fill="currentColor"/></svg>
+          </a>
+          <a class="soc-pill" href="https://t.me/wikki_shark" target="_blank" rel="noopener" aria-label="Telegram @wikki_shark" title="@wikki_shark">
+            <svg width="19" height="19" viewBox="0 0 16 16" fill="none"><path d="M14.5 1.8L1.8 7c-.5.2-.5.9 0 1.1l3.1 1.1 1.2 3.8c.2.5.8.6 1.1.2l1.7-1.9 3.3 2.4c.4.3 1 .1 1.1-.4l2-10.7c.1-.6-.4-1-.8-.8z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M5 9.2l8.5-6.4-6.7 7.2v2.6" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="bento">
+      <div class="glass bento-card reveal">
+        <div class="bento-num" data-count="100" data-suffix="+">100+</div>
+        <div class="bento-t">проектов за 5 лет</div>
+        <p class="bento-p">Работала с проектами в России и за рубежом — от локальных запусков до международных проектов</p>
+      </div>
+      <div class="glass bento-card reveal" data-delay="1">
+        <div class="bento-num" data-count="40000" data-prefix="$" data-suffix="+">$40 000+</div>
+        <div class="bento-t">выручка за один день</div>
+        <p class="bento-p">Организовала офлайн-тренинг в Москве: 100+ участников из разных стран, вся выручка сделана за одно мероприятие</p>
+      </div>
+      <div class="glass bento-card reveal" data-delay="2">
+        <div class="bento-num" data-count="100000" data-prefix="$" data-suffix="+">$100 000+</div>
+        <div class="bento-t">заработала клиентам</div>
+        <p class="bento-p">Столько принесли клиентам проекты, которые я запускала и вела</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ RESULTS ============ -->
 <section class="results" id="results">
   <div class="shard" style="width:18px;height:18px;top:12%;right:10%;animation-duration:10s;"></div>
@@ -1552,57 +1629,6 @@ footer .container { display: flex; align-items: center; justify-content: space-b
           <h3 class="title">Живые связи</h3>
           <p>Познакомишься с людьми, которые уже строят системы, бизнесы и проекты. Нетворкинг и афтепати в формате, где одно знакомство может окупить билет много раз</p>
         </article>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ SPEAKER ============ -->
-<section class="speaker" id="speaker">
-  <div class="shard" style="width:16px;height:16px;top:8%;left:8%;animation-duration:11s;"></div>
-  <div class="shark" style="width:120px; top:78%; animation-duration:66s; animation-delay:-30s; opacity:.24;" aria-hidden="true">
-    <img src="shark-neon.png" alt="" loading="lazy">
-  </div>
-  <div class="container">
-    <div class="speaker-top">
-      <div class="reveal">
-        <span class="label">Спикер</span>
-        <h2 class="display-l grad-text speaker-name">Виктория Гладышева</h2>
-        <p class="label speaker-role">Маркетолог-стратег · Архитектор систем роста · Основатель WIKKI.OCEAN</p>
-        <div class="speaker-photo reveal" data-delay="1"></div>
-        <div class="speaker-story">
-          <p>Первый бизнес открыла <span class="acc">в 12 лет</span>.</p>
-          <p>К 20 годам за спиной более 5 лет опыта в маркетинге и <span class="acc">100+ проектов</span> на российском и международном уровне: от локальных запусков и офлайн-мероприятий до европейских онлайн-школ и <b>руководства digital-командой кандидата в президенты</b>.</p>
-          <p>Сейчас открываю свою международную компанию <span class="acc">WIKKI.OCEAN</span>. Верю, что потенциал человека равен потенциалу океана — а раскрыть его помогает <b>система</b>.</p>
-          <p>Эта система — <b>маркетинг</b>, который строит влияние, и <span class="acc">AI-архитектура</span>, которая закрывает задачи целых отделов: агенты, программирование, автоматизация любых запросов. Всё это экономит временные и финансовые ресурсы.</p>
-          <p>Изучаю подходы в <b>России, Америке, Европе и Китае</b> — лучшее из них внедряю в свои проекты и проекты клиентов. Готовлюсь к поступлению в американскую бизнес-школу.</p>
-        </div>
-        <div class="speaker-socials">
-          <a class="soc-pill" href="https://instagram.com/wikki.shark" target="_blank" rel="noopener" aria-label="Instagram @wikki.shark" title="@wikki.shark">
-            <svg width="19" height="19" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="1.5" width="13" height="13" rx="4" stroke="currentColor" stroke-width="1.4"/><circle cx="8" cy="8" r="3.2" stroke="currentColor" stroke-width="1.4"/><circle cx="11.9" cy="4.1" r="1" fill="currentColor"/></svg>
-          </a>
-          <a class="soc-pill" href="https://t.me/wikki_shark" target="_blank" rel="noopener" aria-label="Telegram @wikki_shark" title="@wikki_shark">
-            <svg width="19" height="19" viewBox="0 0 16 16" fill="none"><path d="M14.5 1.8L1.8 7c-.5.2-.5.9 0 1.1l3.1 1.1 1.2 3.8c.2.5.8.6 1.1.2l1.7-1.9 3.3 2.4c.4.3 1 .1 1.1-.4l2-10.7c.1-.6-.4-1-.8-.8z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M5 9.2l8.5-6.4-6.7 7.2v2.6" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg>
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <div class="bento">
-      <div class="glass bento-card reveal">
-        <div class="bento-num" data-count="100" data-suffix="+">100+</div>
-        <div class="bento-t">проектов за 5 лет</div>
-        <p class="bento-p">Работала с проектами в России и за рубежом — от локальных запусков до международных проектов</p>
-      </div>
-      <div class="glass bento-card reveal" data-delay="1">
-        <div class="bento-num" data-count="40000" data-prefix="$" data-suffix="+">$40 000+</div>
-        <div class="bento-t">выручка за один день</div>
-        <p class="bento-p">Организовала офлайн-тренинг в Москве: 100+ участников из разных стран, вся выручка сделана за одно мероприятие</p>
-      </div>
-      <div class="glass bento-card reveal" data-delay="2">
-        <div class="bento-num" data-count="100000" data-prefix="$" data-suffix="+">$100 000+</div>
-        <div class="bento-t">заработала клиентам</div>
-        <p class="bento-p">Столько принесли клиентам проекты, которые я запускала и вела</p>
       </div>
     </div>
   </div>
