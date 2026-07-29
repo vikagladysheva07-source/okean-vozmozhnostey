@@ -861,37 +861,63 @@ section { position: relative; padding: 100px 0 120px; overflow: hidden; }
 
 /* ============ ДЛЯ КОГО ============ */
 .audience {
+  padding: 80px 0 90px;
   background:
-    radial-gradient(ellipse 50% 40% at 50% 45%, rgba(91,47,190,.13), transparent 70%),
+    radial-gradient(ellipse 55% 45% at 50% 40%, rgba(91,47,190,.14), transparent 72%),
     var(--black);
 }
-.aud-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.aud-card {
-  display: grid; grid-template-columns: 46px 1fr; gap: 18px; align-items: start;
-  padding: 26px 26px 24px;
-  transition: transform .45s cubic-bezier(.22,1,.36,1), border-color .45s ease, box-shadow .45s ease;
+.aud-title {
+  text-align: center;
+  font-size: clamp(30px, 5vw, 60px); font-weight: 900;
+  letter-spacing: -0.03em; line-height: 1.05; text-transform: uppercase;
+  margin-bottom: 6px;
 }
-.aud-card:hover {
-  transform: translateY(-5px);
-  border-color: rgba(155,111,232,.45);
-  box-shadow: inset 0 1px 0 rgba(196,164,255,.22), 0 28px 56px -30px rgba(0,0,0,.9), 0 0 50px -14px rgba(155,111,232,.4);
+.aud-for {
+  text-align: center; margin-bottom: 30px;
+  font-size: clamp(18px, 2.4vw, 26px); font-weight: 700;
+  letter-spacing: .04em; text-transform: lowercase; color: var(--id2);
 }
-.aud-icon {
-  width: 46px; height: 46px; border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  background: rgba(155,111,232,.12); border: 1px solid rgba(155,111,232,.3);
-  box-shadow: 0 0 24px -8px rgba(155,111,232,.5), inset 0 1px 0 rgba(255,255,255,.1);
+.aud-checks {
+  display: grid; grid-template-columns: repeat(2, auto); justify-content: center;
+  gap: 16px 54px; margin-bottom: 60px;
 }
-.aud-card h3 { font-size: 17px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 7px; }
-.aud-card p { font-size: 14.5px; color: var(--id2); line-height: 1.6; }
-.aud-note {
-  margin-top: 26px; padding: 18px 24px; border-radius: 14px;
-  display: flex; align-items: flex-start; gap: 13px;
-  background: rgba(8,6,16,.5); border: 1px solid var(--line);
-  font-size: 14px; color: var(--idd); line-height: 1.6;
+.aud-check { display: flex; align-items: center; gap: 13px; font-size: clamp(15px, 1.8vw, 19px); font-weight: 500; color: var(--id); }
+.aud-dot {
+  width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0; position: relative;
+  border: 1.5px solid rgba(196,164,255,.55);
+  background: rgba(155,111,232,.08);
+  box-shadow: 0 0 18px -4px rgba(155,111,232,.6), inset 0 1px 0 rgba(255,255,255,.12);
 }
-.aud-note b { color: var(--id2); font-weight: 700; }
-.aud-note svg { flex-shrink: 0; margin-top: 2px; }
+.aud-dot::after {
+  content: ""; position: absolute; inset: 6px; border-radius: 50%;
+  background: linear-gradient(180deg, #E8DFFF, var(--purple));
+  box-shadow: 0 0 10px rgba(196,164,255,.8);
+}
+.aud-wants {
+  text-align: center; margin-bottom: 34px;
+  font-size: clamp(22px, 3vw, 34px); font-weight: 800;
+  letter-spacing: -0.02em; text-transform: uppercase;
+}
+.want-list { display: flex; flex-direction: column; gap: 18px; max-width: 720px; margin: 0 auto; }
+.want-row {
+  display: grid; grid-template-columns: 92px 1fr; gap: 20px; align-items: center;
+  padding: 20px 26px 20px 18px;
+  transition: transform .4s ease, border-color .4s ease, box-shadow .4s ease;
+}
+.want-row:hover {
+  transform: translateX(6px);
+  border-color: rgba(155,111,232,.42);
+  box-shadow: inset 0 1px 0 rgba(196,164,255,.2), 0 24px 48px -28px rgba(0,0,0,.85), 0 0 44px -14px rgba(155,111,232,.36);
+}
+.want-num {
+  font-size: clamp(46px, 6vw, 68px); font-weight: 900; line-height: .9;
+  letter-spacing: -0.05em; text-align: center;
+  color: var(--purple-br); opacity: .22;
+  transition: opacity .4s ease;
+}
+.want-row:hover .want-num { opacity: .5; }
+.want-text { font-size: clamp(14.5px, 1.7vw, 17px); color: var(--id2); line-height: 1.5; }
+.want-text b { display: block; color: var(--id); font-weight: 700; font-size: 1.12em; letter-spacing: -0.01em; margin: 2px 0; }
 
 /* ============ PRICING ============ */
 .pricing {
@@ -1084,11 +1110,14 @@ footer .container { display: flex; align-items: center; justify-content: space-b
   .price-grid { grid-template-columns: 1fr; gap: 26px; }
   .price-card.popular { transform: none; }
   .price-card.popular:hover { transform: translateY(-8px); }
-  .aud-grid { grid-template-columns: 1fr; gap: 12px; }
-  .aud-card { grid-template-columns: 38px 1fr; gap: 14px; padding: 20px 18px; }
-  .aud-icon { width: 38px; height: 38px; border-radius: 10px; }
-  .aud-card h3 { font-size: 16px; }
-  .aud-note { padding: 16px 18px; font-size: 13.5px; }
+  .audience { padding: 56px 0 66px; }
+  .aud-checks { grid-template-columns: 1fr; gap: 13px; justify-content: start; margin-bottom: 44px; }
+  .aud-check { font-size: 16px; }
+  .aud-dot { width: 22px; height: 22px; }
+  .aud-dot::after { inset: 5px; }
+  .want-row { grid-template-columns: 58px 1fr; gap: 14px; padding: 18px 18px 18px 12px; }
+  .want-num { font-size: 38px; }
+  .want-text { font-size: 14.5px; }
   .bento { grid-template-columns: 1fr; gap: 10px; }
   .bento-card { padding: 18px; }
   .speaker-story p { font-size: 14.5px; }
@@ -1246,6 +1275,42 @@ footer .container { display: flex; align-items: center; justify-content: space-b
 </div>
 
 <!-- ============ PROBLEM / ICEBERG ============ -->
+<!-- ============ ДЛЯ КОГО ============ -->
+<section class="audience" id="audience">
+  <div class="shard" style="width:16px;height:16px;top:10%;right:7%;animation-duration:11s;"></div>
+  <div class="shark rtl flip" style="width:110px; top:76%; animation-duration:72s; animation-delay:-40s; opacity:.2;" aria-hidden="true">
+    <img src="shark-neon.png" alt="" loading="lazy">
+  </div>
+  <div class="container">
+    <h2 class="aud-title grad-text reveal">Конференция</h2>
+    <p class="aud-for reveal">для</p>
+
+    <div class="aud-checks reveal" data-delay="1">
+      <span class="aud-check"><i class="aud-dot"></i>предпринимателей</span>
+      <span class="aud-check"><i class="aud-dot"></i>экспертов</span>
+      <span class="aud-check"><i class="aud-dot"></i>руководителей</span>
+      <span class="aud-check"><i class="aud-dot"></i>блогеров и специалистов</span>
+    </div>
+
+    <h3 class="aud-wants grad-text reveal" data-delay="2">которые хотят:</h3>
+
+    <div class="want-list">
+      <div class="glass want-row reveal">
+        <span class="want-num">01</span>
+        <p class="want-text">передать рутину AI и <b>освободить время</b> на то, что действительно двигает вперёд</p>
+      </div>
+      <div class="glass want-row reveal" data-delay="1">
+        <span class="want-num">02</span>
+        <p class="want-text">вырасти в доходе, <b>не увеличивая рабочие часы</b> и не раздувая команду</p>
+      </div>
+      <div class="glass want-row reveal" data-delay="2">
+        <span class="want-num">03</span>
+        <p class="want-text">оказаться среди тех, <b>кто уже строит системы</b> — и забрать их опыт и контакты</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="problem" id="problem">
   <div class="shard" style="width:22px;height:22px;top:14%;left:6%;animation-duration:9s;"></div>
   <div class="shard deep" style="width:14px;height:14px;top:70%;right:8%;animation-duration:12s;"></div>
@@ -1260,7 +1325,7 @@ footer .container { display: flex; align-items: center; justify-content: space-b
   </div>
   <div class="container">
     <div class="problem-intro reveal">
-      <h2 class="problem-head">Большинство работают <em>больше</em>, чем нужно, — и получают <em>меньше</em>, чем могли бы</h2>
+      <h2 class="problem-head">Люди тратят на работу <em>слишком много</em> сил — и получают <em>слишком мало</em> взамен</h2>
       <div class="pain-list">
         <div class="pain-row">
           <span class="pain-icon"><svg width="17" height="17" viewBox="0 0 17 17" fill="none"><path d="M9.5 1.5L3 10h4l-1 5.5L13 7H9l.5-5.5z" stroke="#C4A4FF" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
@@ -1575,63 +1640,6 @@ footer .container { display: flex; align-items: center; justify-content: space-b
 </section>
 
 <!-- ============ PRICING ============ -->
-<!-- ============ ДЛЯ КОГО ============ -->
-<section class="audience" id="audience">
-  <div class="shard" style="width:16px;height:16px;top:12%;right:7%;animation-duration:11s;"></div>
-  <div class="shark rtl flip" style="width:110px; top:74%; animation-duration:72s; animation-delay:-40s; opacity:.22;" aria-hidden="true">
-    <img src="shark-neon.png" alt="" loading="lazy">
-  </div>
-  <div class="container">
-    <div class="section-head reveal">
-      <span class="label">Для кого</span>
-      <h2 class="display-l grad-text">Узнай себя</h2>
-    </div>
-
-    <div class="aud-grid">
-      <article class="glass aud-card reveal">
-        <span class="aud-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 20V9l9-6 9 6v11" stroke="#C4A4FF" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 20v-6h6v6" stroke="#C4A4FF" stroke-width="1.8" stroke-linejoin="round"/></svg>
-        </span>
-        <div>
-          <h3>Предприниматели и владельцы дела</h3>
-          <p>Дело работает, но держится на тебе. Любой рост означает ещё больше твоих часов, а их уже не осталось</p>
-        </div>
-      </article>
-
-      <article class="glass aud-card reveal" data-delay="1">
-        <span class="aud-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="#C4A4FF" stroke-width="1.8"/><path d="M4 21c.9-4.3 3.6-6.5 8-6.5s7.1 2.2 8 6.5" stroke="#C4A4FF" stroke-width="1.8" stroke-linecap="round"/></svg>
-        </span>
-        <div>
-          <h3>Эксперты и специалисты</h3>
-          <p>Клиентов можно взять больше — только сутки не резиновые. Доход упирается во время, а не в навык</p>
-        </div>
-      </article>
-
-      <article class="glass aud-card reveal" data-delay="2">
-        <span class="aud-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="8" cy="8" r="3" stroke="#C4A4FF" stroke-width="1.8"/><circle cx="17" cy="7" r="2.4" stroke="#C4A4FF" stroke-width="1.8"/><path d="M2 20c.7-3.7 3-5.6 6-5.6s5.3 1.9 6 5.6M15.5 18c.5-2.4 1.6-3.6 3.2-3.6 2 0 3.3 1.5 3.8 4.2" stroke="#C4A4FF" stroke-width="1.8" stroke-linecap="round"/></svg>
-        </span>
-        <div>
-          <h3>Руководители и управленцы</h3>
-          <p>Команда есть, но операционка съедает день. Хочется понять, что можно отдать AI вместо ещё одного найма</p>
-        </div>
-      </article>
-
-      <article class="glass aud-card reveal" data-delay="3">
-        <span class="aud-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="6" y="6" width="12" height="12" rx="2" stroke="#C4A4FF" stroke-width="1.8"/><rect x="9.5" y="9.5" width="5" height="5" rx="1" fill="rgba(196,164,255,.55)"/><path d="M9 1.5v3M15 1.5v3M9 19.5v3M15 19.5v3M1.5 9h3M1.5 15h3M19.5 9h3M19.5 15h3" stroke="#C4A4FF" stroke-width="1.8" stroke-linecap="round"/></svg>
-        </span>
-        <div>
-          <h3>Те, кто присматривается к AI</h3>
-          <p>Про нейросети говорят все, но непонятно, с чего начать именно в своей работе и что это даст в деньгах</p>
-        </div>
-      </article>
-    </div>
-
-  </div>
-</section>
-
 <section class="pricing" id="pricing">
   <div class="shard" style="width:18px;height:18px;top:10%;left:5%;animation-duration:10.5s;"></div>
   <div class="shard deep" style="width:14px;height:14px;bottom:12%;right:9%;animation-duration:12.5s;"></div>
