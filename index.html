@@ -48,6 +48,14 @@ body {
 
 ::selection { background: rgba(155,111,232,.35); color: #fff; }
 
+/* типографика: заголовки переносятся сбалансированно, абзацы без висячих слов */
+h1, h2, h3, .display-xl, .display-l, .title,
+.aud-title, .aud-wants, .problem-head, .problem-quote,
+.price-value, .bento-num, .final-date, .date-line { text-wrap: balance; }
+
+p, li, .want-text, .bento-p, .sys-card span, .t-take,
+.speaker-story p, .hero-sub, .final-sub, .aud-check { text-wrap: pretty; }
+
 img { max-width: 100%; display: block; }
 a { text-decoration: none; color: inherit; }
 
@@ -872,50 +880,86 @@ section { position: relative; padding: 100px 0 120px; overflow: hidden; }
   letter-spacing: -0.03em; line-height: 1.05; text-transform: uppercase;
   margin-bottom: 6px;
 }
+/* «для» с светящимися линиями по бокам */
 .aud-for {
-  text-align: center; margin-bottom: 30px;
-  font-size: clamp(18px, 2.4vw, 26px); font-weight: 700;
-  letter-spacing: .04em; text-transform: lowercase; color: var(--id2);
+  display: flex; align-items: center; justify-content: center; gap: 18px;
+  margin: 10px auto 34px; max-width: 420px;
+  font-size: 13px; font-weight: 700;
+  letter-spacing: .3em; text-transform: uppercase; color: var(--idd);
 }
+.aud-for::before, .aud-for::after {
+  content: ""; flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(196,164,255,.55));
+  box-shadow: 0 0 10px rgba(155,111,232,.4);
+}
+.aud-for::after { background: linear-gradient(90deg, rgba(196,164,255,.55), transparent); }
+
 .aud-checks {
-  display: grid; grid-template-columns: repeat(2, auto); justify-content: center;
-  gap: 16px 54px; margin-bottom: 60px;
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 13px; margin-bottom: 66px;
 }
-.aud-check { display: flex; align-items: center; gap: 13px; font-size: clamp(15px, 1.8vw, 19px); font-weight: 500; color: var(--id); }
+.aud-check {
+  display: inline-flex; align-items: center; gap: 11px;
+  padding: 13px 24px 13px 15px; border-radius: 100px;
+  font-size: clamp(14.5px, 1.7vw, 17px); font-weight: 600; color: var(--id);
+  background: linear-gradient(180deg, rgba(30,18,58,.62), rgba(10,6,22,.62));
+  border: 1px solid rgba(155,111,232,.3);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  box-shadow: inset 0 1px 0 rgba(196,164,255,.16), 0 18px 36px -24px rgba(0,0,0,.9), 0 0 28px -14px rgba(155,111,232,.35);
+  transition: transform .4s cubic-bezier(.22,1,.36,1), border-color .4s ease, box-shadow .4s ease;
+}
+.aud-check:hover {
+  transform: translateY(-3px);
+  border-color: rgba(196,164,255,.6);
+  box-shadow: inset 0 1px 0 rgba(196,164,255,.24), 0 22px 42px -22px rgba(0,0,0,.9), 0 0 40px -12px rgba(155,111,232,.6);
+}
 .aud-dot {
-  width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0; position: relative;
-  border: 1.5px solid rgba(196,164,255,.55);
-  background: rgba(155,111,232,.08);
-  box-shadow: 0 0 18px -4px rgba(155,111,232,.6), inset 0 1px 0 rgba(255,255,255,.12);
+  width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(180deg, rgba(196,164,255,.35), rgba(91,47,190,.3));
+  border: 1px solid rgba(196,164,255,.6);
+  box-shadow: 0 0 16px -3px rgba(155,111,232,.7), inset 0 1px 0 rgba(255,255,255,.25);
 }
-.aud-dot::after {
-  content: ""; position: absolute; inset: 6px; border-radius: 50%;
-  background: linear-gradient(180deg, #E8DFFF, var(--purple));
-  box-shadow: 0 0 10px rgba(196,164,255,.8);
-}
+.aud-dot svg { display: block; }
 .aud-wants {
   text-align: center; margin-bottom: 34px;
   font-size: clamp(22px, 3vw, 34px); font-weight: 800;
   letter-spacing: -0.02em; text-transform: uppercase;
 }
-.want-list { display: flex; flex-direction: column; gap: 18px; max-width: 720px; margin: 0 auto; }
+.want-list { display: flex; flex-direction: column; gap: 16px; max-width: 740px; margin: 0 auto; }
 .want-row {
-  display: grid; grid-template-columns: 92px 1fr; gap: 20px; align-items: center;
-  padding: 20px 26px 20px 18px;
-  transition: transform .4s ease, border-color .4s ease, box-shadow .4s ease;
+  position: relative; overflow: hidden;
+  display: grid; grid-template-columns: 84px 1px 1fr; gap: 24px; align-items: center;
+  padding: 24px 28px 24px 20px;
+  transition: transform .45s cubic-bezier(.22,1,.36,1), border-color .45s ease, box-shadow .45s ease;
+}
+.want-row::before {
+  content: ""; position: absolute; left: 0; top: 14%; bottom: 14%; width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: linear-gradient(180deg, var(--purple-br), var(--purple-dp));
+  box-shadow: 0 0 16px rgba(155,111,232,.7);
+  opacity: .55; transition: opacity .45s ease;
 }
 .want-row:hover {
-  transform: translateX(6px);
-  border-color: rgba(155,111,232,.42);
-  box-shadow: inset 0 1px 0 rgba(196,164,255,.2), 0 24px 48px -28px rgba(0,0,0,.85), 0 0 44px -14px rgba(155,111,232,.36);
+  transform: translateX(8px);
+  border-color: rgba(196,164,255,.5);
+  box-shadow: inset 0 1px 0 rgba(196,164,255,.22), 0 26px 52px -28px rgba(0,0,0,.9), 0 0 48px -14px rgba(155,111,232,.45);
 }
+.want-row:hover::before { opacity: 1; }
 .want-num {
-  font-size: clamp(46px, 6vw, 68px); font-weight: 900; line-height: .9;
+  font-size: clamp(44px, 5.6vw, 62px); font-weight: 900; line-height: .9;
   letter-spacing: -0.05em; text-align: center;
-  color: var(--purple-br); opacity: .22;
-  transition: opacity .4s ease;
+  background: linear-gradient(160deg, #FFFFFF 0%, #C4A4FF 45%, #7A4FD0 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 18px rgba(155,111,232,.35));
+  opacity: .55; transition: opacity .45s ease, filter .45s ease;
 }
-.want-row:hover .want-num { opacity: .5; }
+.want-row:hover .want-num { opacity: 1; filter: drop-shadow(0 0 24px rgba(155,111,232,.6)); }
+.want-divider {
+  width: 1px; height: 62%; border-radius: 1px;
+  background: linear-gradient(180deg, transparent, rgba(196,164,255,.5), transparent);
+}
 .want-text { font-size: clamp(14.5px, 1.7vw, 17px); color: var(--id2); line-height: 1.5; }
 .want-text b { display: block; color: var(--id); font-weight: 700; font-size: 1.12em; letter-spacing: -0.01em; margin: 2px 0; }
 
@@ -1111,12 +1155,13 @@ footer .container { display: flex; align-items: center; justify-content: space-b
   .price-card.popular { transform: none; }
   .price-card.popular:hover { transform: translateY(-8px); }
   .audience { padding: 56px 0 66px; }
-  .aud-checks { grid-template-columns: 1fr; gap: 13px; justify-content: start; margin-bottom: 44px; }
-  .aud-check { font-size: 16px; }
+  .aud-checks { gap: 10px; margin-bottom: 46px; }
+  .aud-check { padding: 11px 18px 11px 11px; font-size: 14.5px; }
   .aud-dot { width: 22px; height: 22px; }
-  .aud-dot::after { inset: 5px; }
-  .want-row { grid-template-columns: 58px 1fr; gap: 14px; padding: 18px 18px 18px 12px; }
-  .want-num { font-size: 38px; }
+  .aud-dot svg { width: 11px; height: 11px; }
+  .aud-for { margin-bottom: 26px; letter-spacing: .22em; }
+  .want-row { grid-template-columns: 54px 1px 1fr; gap: 15px; padding: 18px 18px 18px 14px; }
+  .want-num { font-size: 36px; }
   .want-text { font-size: 14.5px; }
   .bento { grid-template-columns: 1fr; gap: 10px; }
   .bento-card { padding: 18px; }
@@ -1286,10 +1331,10 @@ footer .container { display: flex; align-items: center; justify-content: space-b
     <p class="aud-for reveal">для</p>
 
     <div class="aud-checks reveal" data-delay="1">
-      <span class="aud-check"><i class="aud-dot"></i>предпринимателей</span>
-      <span class="aud-check"><i class="aud-dot"></i>экспертов</span>
-      <span class="aud-check"><i class="aud-dot"></i>руководителей</span>
-      <span class="aud-check"><i class="aud-dot"></i>блогеров и специалистов</span>
+      <span class="aud-check"><i class="aud-dot"><svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 7.5l3.3 3L12 3.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></i>предпринимателей</span>
+      <span class="aud-check"><i class="aud-dot"><svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 7.5l3.3 3L12 3.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></i>экспертов</span>
+      <span class="aud-check"><i class="aud-dot"><svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 7.5l3.3 3L12 3.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></i>руководителей</span>
+      <span class="aud-check"><i class="aud-dot"><svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 7.5l3.3 3L12 3.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></i>блогеров и специалистов</span>
     </div>
 
     <h3 class="aud-wants grad-text reveal" data-delay="2">которые хотят:</h3>
@@ -1297,14 +1342,17 @@ footer .container { display: flex; align-items: center; justify-content: space-b
     <div class="want-list">
       <div class="glass want-row reveal">
         <span class="want-num">01</span>
+        <span class="want-divider"></span>
         <p class="want-text">передать рутину AI и <b>освободить время</b> на то, что действительно двигает вперёд</p>
       </div>
       <div class="glass want-row reveal" data-delay="1">
         <span class="want-num">02</span>
+        <span class="want-divider"></span>
         <p class="want-text">вырасти в доходе, <b>не увеличивая рабочие часы</b> и не раздувая команду</p>
       </div>
       <div class="glass want-row reveal" data-delay="2">
         <span class="want-num">03</span>
+        <span class="want-divider"></span>
         <p class="want-text">оказаться среди тех, <b>кто уже строит системы</b> — и забрать их опыт и контакты</p>
       </div>
     </div>
@@ -1762,6 +1810,27 @@ footer .container { display: flex; align-items: center; justify-content: space-b
   onScroll();
 })();
 
+// типограф: предлоги и короткие слова не отрываются от следующего слова
+(function () {
+  var SHORT = /(^|[\s(«—-])([а-яёa-z]{1,2}|для|при|над|под|без|про|что|как|это|уже|или|его|её|их|там|тут|где|чем|уже)\s+/gi;
+  var NUM = /(\d)\s+(?=[а-яёa-z₽$€])/gi;
+  function walk(node) {
+    if (node.nodeType === 3) {
+      var t = node.nodeValue, n = t;
+      n = n.replace(SHORT, function (m, p1, p2) { return p1 + p2 + ' '; });
+      n = n.replace(NUM, '$1 ');
+      if (n !== t) node.nodeValue = n;
+    } else if (node.nodeType === 1 && !/^(SCRIPT|STYLE|CODE|SVG)$/i.test(node.tagName)) {
+      for (var i = 0; i < node.childNodes.length; i++) walk(node.childNodes[i]);
+    }
+  }
+  ['.hero-inner', '.audience', '.problem', '.results', '.speaker', '.program', '.pricing', '.final', 'footer']
+    .forEach(function (sel) {
+      var el = document.querySelector(sel);
+      if (el) walk(el);
+    });
+})();
+
 // прогресс-бар чтения
 (function () {
   var bar = document.getElementById('scrollProgress');
@@ -1776,7 +1845,7 @@ footer .container { display: flex; align-items: center; justify-content: space-b
 
 // световое пятно за курсором на карточках
 (function () {
-  document.querySelectorAll('.price-card, .result-card, .sys-card').forEach(function (card) {
+  document.querySelectorAll('.price-card, .result-card, .sys-card, .want-row').forEach(function (card) {
     card.classList.add('spot');
     card.addEventListener('mousemove', function (e) {
       var r = card.getBoundingClientRect();
