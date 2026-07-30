@@ -1157,9 +1157,9 @@ footer .container { display: flex; align-items: center; justify-content: space-b
   /* на телефоне фото не обтекается текстом, а идёт широкой карточкой */
   .speaker-photo {
     float: none; width: 100%; max-width: 100%;
-    aspect-ratio: 5 / 4; margin: 4px 0 22px; border-radius: 16px;
+    aspect-ratio: 532 / 699; margin: 4px 0 22px; border-radius: 16px;
   }
-  .speaker-photo::before { background-position: center 22%; }
+  .speaker-photo::before { background-size: contain; background-repeat: no-repeat; background-position: center; }
   .speaker-name { margin: 14px 0 10px; }
   .creds { margin-top: 20px; }
   .results-grid { gap: 56px 80px; }
