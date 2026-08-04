@@ -93,6 +93,20 @@ table.lv td:first-child{color:var(--purple-br);font-weight:900;font-size:clamp(2
 .card.te{border-color:rgba(0,196,212,.30);box-shadow:inset 0 1px 0 rgba(196,164,255,.14),0 14px 30px -16px rgba(0,0,0,.8),0 0 34px -14px rgba(0,196,212,.35)}.card.te .ct{color:var(--teal-br)}
 .card.go{border-color:var(--line2);box-shadow:inset 0 1px 0 rgba(196,164,255,.14),0 14px 30px -16px rgba(0,0,0,.8),0 0 30px -14px rgba(255,255,255,.14)}.card.go .ct{color:var(--ivory)}
 
+/* branded AI-tool cards */
+.card.tool-claude,.card.tool-gpt,.card.tool-gemini{text-align:center;padding:4vh 2vw}
+.tool-badge{width:clamp(56px,6.5vw,92px);height:clamp(56px,6.5vw,92px);border-radius:50%;
+  margin:0 auto 2.2vh;display:flex;align-items:center;justify-content:center;
+  font-size:clamp(26px,3.2vw,44px);line-height:1;color:#fff}
+.card.tool-claude .tool-badge{background:linear-gradient(150deg,#E8956E,#C4633A);box-shadow:0 0 34px -8px rgba(218,119,86,.65)}
+.card.tool-gpt .tool-badge{background:linear-gradient(150deg,#1FBF95,#0D8265);box-shadow:0 0 34px -8px rgba(16,163,127,.6)}
+.card.tool-gemini .tool-badge{background:linear-gradient(150deg,#5C8DF6,#9B72CB);box-shadow:0 0 34px -8px rgba(124,120,220,.65)}
+.card.tool-claude{border-color:rgba(218,119,86,.4);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 14px 30px -16px rgba(0,0,0,.8),0 0 38px -14px rgba(218,119,86,.4)}
+.card.tool-gpt{border-color:rgba(16,163,127,.4);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 14px 30px -16px rgba(0,0,0,.8),0 0 38px -14px rgba(16,163,127,.38)}
+.card.tool-gemini{border-color:rgba(124,120,220,.44);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 14px 30px -16px rgba(0,0,0,.8),0 0 38px -14px rgba(124,120,220,.42)}
+.card.tool-claude .ct{color:#F0A583}.card.tool-gpt .ct{color:#4ED6B2}.card.tool-gemini .ct{color:#A9B8F8}
+.card.tool-claude .ct,.card.tool-gpt .ct,.card.tool-gemini .ct{font-size:clamp(20px,2.3vw,34px)}
+
 /* bio slide */
 .bio{display:flex;gap:3vw;align-items:center;width:100%;max-width:1180px;text-align:left}
 .bio-photo{flex:0 0 220px;width:220px;height:280px;border-radius:18px;overflow:hidden;
@@ -351,12 +365,12 @@ const S=[
 </div>`},
 
 /* ===== БЛОК 5 ===== */
-{p:'Блок 5 · С чего начать',h:`<div class="cards">
-<div class="card pu"><div class="ct">Claude</div><div class="cd">Стратегия, тексты, длинная работа</div></div>
-<div class="card te"><div class="ct">ChatGPT</div><div class="cd">Самый известный, много интеграций</div></div>
-<div class="card go"><div class="ct">Gemini</div><div class="cd">Данные и документы</div></div>
-</div>
-<div class="hint" style="font-size:clamp(16px,2vw,30px);margin-top:4vh">Возьмите ОДИН. Не три.</div>`},
+{p:'Блок 5 · С чего начать',h:`<div class="kicker">С чего начать</div>
+<div class="cards" style="max-width:1200px">
+<div class="card tool-claude"><div class="tool-badge">✳</div><div class="ct">Claude</div><div class="cd">Стратегия, тексты, длинная работа</div></div>
+<div class="card tool-gpt"><div class="tool-badge">⌘</div><div class="ct">ChatGPT</div><div class="cd">Самый известный, много интеграций</div></div>
+<div class="card tool-gemini"><div class="tool-badge">✦</div><div class="ct">Gemini</div><div class="cd">Данные и документы</div></div>
+</div>`},
 
 {p:'Блок 5 · С чего начать',h:`<div class="kicker">Ошибка № 1</div>
 <h3>Задать запрос без контекста и разочароваться</h3>
