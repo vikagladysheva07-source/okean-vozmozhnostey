@@ -156,6 +156,13 @@ table.lv td:first-child{color:var(--purple-br);font-weight:900;font-size:clamp(2
 .lvnext{margin-top:1.6vh;padding:1.5vh 1.7vw;border-radius:12px;
   background:rgba(155,111,232,.13);border:1px solid rgba(155,111,232,.32);
   font-size:clamp(14px,1.6vw,24px);color:var(--purple-br);font-weight:600;text-align:left}
+.lvgrid{display:flex;gap:3vw;align-items:center;width:100%;max-width:1240px}
+.lvleft{flex:1.25;min-width:0}
+.lvviz{flex:1;min-width:0;background:rgba(11,7,22,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:1px solid var(--line);border-radius:18px;padding:2.4vh 1.6vw;
+  box-shadow:inset 0 1px 0 rgba(196,164,255,.14),0 14px 30px -16px rgba(0,0,0,.8),0 0 34px -14px rgba(155,111,232,.3)}
+.lvviz svg{width:100%;height:auto;display:block}
+@media (max-width:640px){.lvgrid{flex-direction:column}.lvviz{width:100%}}
 
 .pill{display:inline-block;padding:.75vh 1.5vw;border-radius:999px;border:1px solid var(--line2);
   font-size:clamp(11px,1.1vw,16px);letter-spacing:.14em;text-transform:uppercase;color:var(--id);
@@ -303,14 +310,14 @@ const S=[
 <tr><td>Зависишь от настроения людей</td><td>Система работает стабильно</td></tr></table>`},
 
 {p:'Блок 3 · Что меняется',h:`<div class="kicker">AI уже сегодня делает за вас</div>
-<div class="rows" style="max-width:1000px">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.6vh 1.2vw;width:100%;max-width:1240px;text-align:left">
 <div class="prompt"><b>Пишет тексты в вашем стиле</b><br><span style="color:var(--id)">«Напиши пост на тему [X] в стиле [пример моего текста]»</span></div>
-<div class="prompt"><b>Готовит идеи и материалы</b><br><span style="color:var(--id)">«Я занимаюсь [ниша]. Придумай 10 идей для контента на неделю»</span></div>
-<div class="prompt"><b>Адаптирует одно под всё</b><br><span style="color:var(--id)">«Вот пост. Сделай из него сторис, email и LinkedIn-заметку»</span></div>
+<div class="prompt"><b>Отвечает клиентам</b><br><span style="color:var(--id)">«Вот сообщение клиента. Ответь дружелюбно и предложи запись на этой неделе»</span></div>
+<div class="prompt"><b>Анализирует цифры</b><br><span style="color:var(--id)">«Вот таблица продаж за месяц. Найди три вывода и скажи, что делать»</span></div>
+<div class="prompt"><b>Готовит документы</b><br><span style="color:var(--id)">«Составь коммерческое предложение для [клиент] по этому брифу»</span></div>
+<div class="prompt"><b>Разбирает встречи</b><br><span style="color:var(--id)">«Вот заметки со встречи. Выпиши решения и задачи с дедлайнами»</span></div>
+<div class="prompt"><b>Учит под вашу задачу</b><br><span style="color:var(--id)">«Объясни [тема] простыми словами и дай план первых трёх шагов»</span></div>
 </div>`},
-
-{p:'Блок 3 · Что меняется',h:`<h2 style="max-width:24ch">Одна мысль <span class="grad">× AI</span> = 10+ готовых материалов</h2>
-<div class="sub" style="max-width:56ch">Пост → видео → рассылка → презентация → скрипт для отдела продаж → ответы на частые вопросы клиентов</div>`},
 
 {p:'Блок 3 · Что меняется',h:`<div class="quote">Я не стала работать меньше. Я стала делать в несколько раз больше за то же время</div>
 <div class="src">Виктория Гладышева</div>`},
@@ -374,9 +381,18 @@ const S=[
 
 {p:'Блок 5 · С чего начать',h:`<div class="kicker">Ошибка № 1</div>
 <h3>Задать запрос без контекста и разочароваться</h3>
-<div class="rows" style="max-width:1000px;margin-top:3vh">
-<div class="row"><span class="mk">❌</span><span class="dim">«Напиши пост про маркетинг»</span></div>
-<div class="row"><span class="mk">✅</span><span>«Напиши пост про маркетинг для малого бизнеса, в стиле дружелюбного эксперта, без воды, 150–200 слов, с вопросом в конце»</span></div>
+<div class="cards" style="max-width:1200px;margin-top:3vh;align-items:stretch">
+<div class="card" style="border-color:rgba(255,255,255,.14)"><div class="ct" style="color:var(--idd)">❌ Как обычно чатятся</div>
+<div class="cd" style="font-style:italic">«Напиши пост про маркетинг»</div>
+<div class="cd" style="margin-top:1.4vh;color:var(--idd)">→ безликий текст, «AI пишет шаблонно», вкладка закрыта</div></div>
+<div class="card pu"><div class="ct">✅ Рабочий промпт</div>
+<div class="cd" style="text-align:left">Ты — маркетолог с 10-летним опытом в малом бизнесе.<br><br>
+<b>Задача:</b> пост для Instagram про [тема]<br>
+<b>Аудитория:</b> владельцы малого бизнеса 25–45, устали от пустых советов<br>
+<b>Тон:</b> дружелюбный эксперт, без воды и штампов<br>
+<b>Формат:</b> 150–200 слов, цепляющий первый абзац, вопрос в конце<br>
+<b>Пример моего стиля:</b> [вставить свой текст]<br><br>
+Перед тем как писать — задай мне 2 уточняющих вопроса.</div></div>
 </div>`},
 
 {p:'Блок 5 · С чего начать',h:`<div class="rows" style="max-width:1000px">
@@ -401,39 +417,124 @@ const S=[
 </table>
 <div class="src">Помните: 4 часа в неделю — это первый уровень</div>`},
 
-{p:'Уровень 1',h:`<div class="lvhead"><div class="lvnum">1</div><div><div class="lvname">ЧАТ</div><div class="lvsub">«Умный незнакомец, который забывает тебя каждый раз»</div></div></div>
+{p:'Уровень 1',h:`<div class="lvgrid"><div class="lvleft">
+<div class="lvhead"><div class="lvnum">1</div><div><div class="lvname">ЧАТ</div><div class="lvsub">«Умный незнакомец, который забывает тебя каждый раз»</div></div></div>
 <div class="lvbody">
 <div class="lvline"><b>Ты здесь, если:</b> открываешь новый чат, объясняешь всё заново, получаешь ответ, переписываешь половину. Завтра — сначала</div>
 <div class="lvline"><b>Что уже даёт:</b> ответы, идеи, письма, переводы, разбор текста</div>
 <div class="lvnext">→ Следующий шаг: создай Проект и напиши туда, кто ты</div>
-</div>`},
+</div></div>
+<div class="lvviz"><svg viewBox="0 0 300 200" fill="none">
+<rect x="10" y="10" width="280" height="180" rx="14" stroke="rgba(242,237,226,.2)"/>
+<rect x="120" y="30" width="150" height="26" rx="13" fill="rgba(155,111,232,.35)"/>
+<rect x="30" y="68" width="170" height="26" rx="13" stroke="#5EE0EE" stroke-opacity=".7"/>
+<rect x="120" y="106" width="150" height="26" rx="13" fill="rgba(155,111,232,.35)"/>
+<rect x="30" y="144" width="120" height="26" rx="13" stroke="#5EE0EE" stroke-opacity=".7"/>
+<line x1="205" y1="157" x2="245" y2="157" stroke="rgba(242,237,226,.35)" stroke-width="2" stroke-dasharray="3 4"/>
+<circle cx="262" cy="157" r="13" stroke="rgba(242,237,226,.4)"/>
+<line x1="254" y1="149" x2="270" y2="165" stroke="rgba(242,237,226,.4)" stroke-width="2"/>
+</svg></div></div>`},
 
-{p:'Уровень 2',h:`<div class="lvhead"><div class="lvnum">2</div><div><div class="lvname">ПРОЕКТЫ</div><div class="lvsub">«AI знает, кто ты — и помнит это всегда»</div></div></div>
+{p:'Уровень 2',h:`<div class="lvgrid"><div class="lvleft">
+<div class="lvhead"><div class="lvnum">2</div><div><div class="lvname">ПРОЕКТЫ</div><div class="lvsub">«AI знает, кто ты — и помнит это всегда»</div></div></div>
 <div class="lvbody">
 <div class="lvline"><b>Ты здесь, если:</b> каждый раз вставляешь «напоминаю: я работаю в такой-то сфере...»</div>
 <div class="lvline"><b>Что открывается:</b> контекст подтягивается сам · разные проекты под разные задачи · на выходе готовые файлы, а не текст в чате</div>
 <div class="lvnext">→ Следующий шаг: скачай приложение на компьютер</div>
-</div>`},
+</div></div>
+<div class="lvviz"><svg viewBox="0 0 300 200" fill="none">
+<path d="M30 50 h70 l14 14 h156 v106 a10 10 0 0 1 -10 10 h-220 a10 10 0 0 1 -10 -10 z" stroke="#C4A4FF" stroke-opacity=".8" stroke-width="2"/>
+<rect x="52" y="92" width="56" height="66" rx="6" stroke="#5EE0EE" stroke-opacity=".75"/>
+<line x1="62" y1="108" x2="98" y2="108" stroke="#5EE0EE" stroke-opacity=".6" stroke-width="2"/>
+<line x1="62" y1="122" x2="98" y2="122" stroke="rgba(242,237,226,.35)" stroke-width="2"/>
+<line x1="62" y1="136" x2="88" y2="136" stroke="rgba(242,237,226,.35)" stroke-width="2"/>
+<rect x="124" y="92" width="56" height="66" rx="6" stroke="rgba(242,237,226,.4)"/>
+<circle cx="152" cy="114" r="10" stroke="#C4A4FF" stroke-opacity=".8" stroke-width="2"/>
+<path d="M136 148 a16 12 0 0 1 32 0" stroke="#C4A4FF" stroke-opacity=".8" stroke-width="2"/>
+<rect x="196" y="92" width="56" height="66" rx="6" stroke="rgba(242,237,226,.4)"/>
+<path d="M208 130 l10 10 l22 -24" stroke="#5EE0EE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="150" y="40" text-anchor="middle" fill="rgba(242,237,226,.5)" font-family="DM Sans" font-size="13" letter-spacing="2">ТВОЙ ПРОЕКТ</text>
+</svg></div></div>`},
 
-{p:'Уровень 3',h:`<div class="lvhead"><div class="lvnum">3</div><div><div class="lvname">COWORK</div><div class="lvsub">«Сотрудник с доступом к твоему компьютеру»</div></div></div>
+{p:'Уровень 3',h:`<div class="lvgrid"><div class="lvleft">
+<div class="lvhead"><div class="lvnum">3</div><div><div class="lvname">COWORK</div><div class="lvsub">«Сотрудник с доступом к твоему компьютеру»</div></div></div>
 <div class="lvbody">
 <div class="lvline"><b>Ты здесь, если:</b> копируешь файлы в чат и обратно руками, каждую неделю запускаешь одно и то же</div>
-<div class="lvline"><b>Что открывается:</b> видит твои папки и файлы · работает за компьютером как человек · готовые сценарии под повторяющиеся задачи · ставишь задачу с телефона — приходишь, результат готов</div>
+<div class="lvline"><b>Что открывается:</b> видит твои папки и файлы · работает за компьютером как человек · ставишь задачу с телефона — приходишь, результат готов</div>
 <div class="lvnext">→ Следующий шаг: подключи первый коннектор</div>
-</div>`},
+</div></div>
+<div class="lvviz"><svg viewBox="0 0 300 200" fill="none">
+<rect x="40" y="24" width="220" height="130" rx="10" stroke="rgba(242,237,226,.35)" stroke-width="2"/>
+<path d="M24 172 h252 l-16 -18 h-220 z" stroke="rgba(242,237,226,.35)" stroke-width="2"/>
+<path d="M62 52 h26 l6 6 h30 v34 h-62 z" stroke="#C4A4FF" stroke-opacity=".8" stroke-width="2"/>
+<path d="M62 110 h26 l6 6 h30 v28 h-62 z" stroke="rgba(242,237,226,.4)" stroke-width="2"/>
+<rect x="150" y="52" width="46" height="56" rx="5" stroke="#5EE0EE" stroke-opacity=".75" stroke-width="2"/>
+<line x1="158" y1="68" x2="188" y2="68" stroke="#5EE0EE" stroke-opacity=".55" stroke-width="2"/>
+<line x1="158" y1="80" x2="188" y2="80" stroke="rgba(242,237,226,.35)" stroke-width="2"/>
+<line x1="158" y1="92" x2="178" y2="92" stroke="rgba(242,237,226,.35)" stroke-width="2"/>
+<circle cx="226" cy="94" r="20" fill="rgba(155,111,232,.28)" stroke="#C4A4FF" stroke-opacity=".9" stroke-width="2"/>
+<circle cx="219" cy="90" r="2.6" fill="#F2EDE2"/><circle cx="233" cy="90" r="2.6" fill="#F2EDE2"/>
+<path d="M218 101 a10 6 0 0 0 16 0" stroke="#F2EDE2" stroke-width="2" stroke-linecap="round"/>
+<path d="M196 108 l14 -8" stroke="#5EE0EE" stroke-opacity=".7" stroke-width="2"/>
+</svg></div></div>`},
 
-{p:'Уровень 4',h:`<div class="lvhead"><div class="lvnum">4</div><div><div class="lvname">КОННЕКТОРЫ</div><div class="lvsub">«Он идёт туда, где лежат твои данные»</div></div></div>
+{p:'Уровень 4',h:`<div class="lvgrid"><div class="lvleft">
+<div class="lvhead"><div class="lvnum">4</div><div><div class="lvname">КОННЕКТОРЫ</div><div class="lvsub">«Он идёт туда, где лежат твои данные»</div></div></div>
 <div class="lvbody">
 <div class="lvline"><b>Ты здесь, если:</b> копируешь данные из одного сервиса, а результат руками переносишь в другой</div>
-<div class="lvline"><b>Что открывается:</b> прямой доступ к почте, таблицам, CRM, базе клиентов · несколько агентов работают параллельно — один пишет, второй проверяет, третий оформляет</div>
+<div class="lvline"><b>Что открывается:</b> прямой доступ к почте, таблицам, CRM · несколько агентов работают параллельно — один пишет, второй проверяет, третий оформляет</div>
 <div class="lvnext">→ Следующий шаг: опиши словами процесс, который повторяется каждую неделю</div>
-</div>`},
+</div></div>
+<div class="lvviz"><svg viewBox="0 0 300 200" fill="none">
+<circle cx="150" cy="100" r="30" fill="rgba(155,111,232,.28)" stroke="#C4A4FF" stroke-opacity=".9" stroke-width="2"/>
+<circle cx="140" cy="94" r="3" fill="#F2EDE2"/><circle cx="160" cy="94" r="3" fill="#F2EDE2"/>
+<path d="M139 110 a12 7 0 0 0 22 0" stroke="#F2EDE2" stroke-width="2" stroke-linecap="round"/>
+<line x1="122" y1="78" x2="72" y2="46" stroke="#5EE0EE" stroke-opacity=".55" stroke-width="2"/>
+<line x1="178" y1="78" x2="228" y2="46" stroke="#5EE0EE" stroke-opacity=".55" stroke-width="2"/>
+<line x1="122" y1="122" x2="72" y2="154" stroke="#5EE0EE" stroke-opacity=".55" stroke-width="2"/>
+<line x1="178" y1="122" x2="228" y2="154" stroke="#5EE0EE" stroke-opacity=".55" stroke-width="2"/>
+<rect x="34" y="20" width="52" height="40" rx="8" stroke="#5EE0EE" stroke-opacity=".8" stroke-width="2"/>
+<path d="M38 26 l22 16 l22 -16" stroke="#5EE0EE" stroke-opacity=".8" stroke-width="2"/>
+<rect x="214" y="20" width="52" height="40" rx="8" stroke="#5EE0EE" stroke-opacity=".8" stroke-width="2"/>
+<line x1="222" y1="34" x2="258" y2="34" stroke="#5EE0EE" stroke-opacity=".7" stroke-width="2"/>
+<line x1="222" y1="46" x2="258" y2="46" stroke="#5EE0EE" stroke-opacity=".7" stroke-width="2"/>
+<line x1="234" y1="26" x2="234" y2="54" stroke="#5EE0EE" stroke-opacity=".7" stroke-width="2"/>
+<rect x="34" y="140" width="52" height="40" rx="8" stroke="#C4A4FF" stroke-opacity=".8" stroke-width="2"/>
+<circle cx="52" cy="154" r="6" stroke="#C4A4FF" stroke-opacity=".8" stroke-width="2"/>
+<path d="M42 172 a11 8 0 0 1 20 0" stroke="#C4A4FF" stroke-opacity=".8" stroke-width="2"/>
+<line x1="68" y1="152" x2="80" y2="152" stroke="#C4A4FF" stroke-opacity=".7" stroke-width="2"/>
+<line x1="68" y1="162" x2="80" y2="162" stroke="#C4A4FF" stroke-opacity=".7" stroke-width="2"/>
+<rect x="214" y="140" width="52" height="40" rx="8" stroke="#C4A4FF" stroke-opacity=".8" stroke-width="2"/>
+<rect x="224" y="150" width="14" height="20" rx="3" stroke="#C4A4FF" stroke-opacity=".8" stroke-width="2"/>
+<line x1="246" y1="154" x2="258" y2="154" stroke="#C4A4FF" stroke-opacity=".7" stroke-width="2"/>
+<line x1="246" y1="166" x2="258" y2="166" stroke="#C4A4FF" stroke-opacity=".7" stroke-width="2"/>
+</svg></div></div>`},
 
-{p:'Уровень 5',h:`<div class="lvhead"><div class="lvnum">5</div><div><div class="lvname">СИСТЕМА</div><div class="lvsub">«Один человек делает работу отдела»</div></div></div>
+{p:'Уровень 5',h:`<div class="lvgrid"><div class="lvleft">
+<div class="lvhead"><div class="lvnum">5</div><div><div class="lvname">СИСТЕМА</div><div class="lvsub">«Один человек делает работу отдела»</div></div></div>
 <div class="lvbody">
 <div class="lvline"><b>Что открывается:</b> процессы идут без тебя · описал словами — получил рабочую программу · агенты работают, пока ноутбук закрыт · ты проектируешь, а не выполняешь</div>
 <div class="lvline"><b>Застревают на одной мысли:</b> «это только для тех, кто умеет программировать». Входной билет — не код, а умение описать свой процесс словами</div>
-</div>`},
+</div></div>
+<div class="lvviz"><svg viewBox="0 0 300 200" fill="none">
+<path d="M228 30 a16 16 0 1 0 14 24 a12 12 0 0 1 -14 -24" stroke="#5EE0EE" stroke-opacity=".8" stroke-width="2"/>
+<text x="252" y="34" fill="rgba(94,224,238,.6)" font-family="DM Sans" font-size="12">z</text>
+<text x="262" y="26" fill="rgba(94,224,238,.45)" font-family="DM Sans" font-size="10">z</text>
+<circle cx="60" cy="120" r="22" fill="rgba(155,111,232,.28)" stroke="#C4A4FF" stroke-opacity=".9" stroke-width="2"/>
+<circle cx="53" cy="115" r="2.6" fill="#F2EDE2"/><circle cx="67" cy="115" r="2.6" fill="#F2EDE2"/>
+<path d="M52 127 a10 6 0 0 0 16 0" stroke="#F2EDE2" stroke-width="2" stroke-linecap="round"/>
+<circle cx="150" cy="120" r="22" fill="rgba(0,196,212,.2)" stroke="#5EE0EE" stroke-opacity=".85" stroke-width="2"/>
+<circle cx="143" cy="115" r="2.6" fill="#F2EDE2"/><circle cx="157" cy="115" r="2.6" fill="#F2EDE2"/>
+<path d="M142 127 a10 6 0 0 0 16 0" stroke="#F2EDE2" stroke-width="2" stroke-linecap="round"/>
+<circle cx="240" cy="120" r="22" fill="rgba(155,111,232,.28)" stroke="#C4A4FF" stroke-opacity=".9" stroke-width="2"/>
+<circle cx="233" cy="115" r="2.6" fill="#F2EDE2"/><circle cx="247" cy="115" r="2.6" fill="#F2EDE2"/>
+<path d="M232 127 a10 6 0 0 0 16 0" stroke="#F2EDE2" stroke-width="2" stroke-linecap="round"/>
+<path d="M86 120 h36 m-8 -6 l8 6 l-8 6" stroke="rgba(242,237,226,.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M176 120 h36 m-8 -6 l8 6 l-8 6" stroke="rgba(242,237,226,.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M48 168 h204" stroke="rgba(242,237,226,.18)" stroke-width="2"/>
+<path d="M60 168 v-8 m45 8 v-8 m45 8 v-8 m45 8 v-8 m45 8 v-8" stroke="rgba(94,224,238,.5)" stroke-width="2"/>
+<text x="150" y="188" text-anchor="middle" fill="rgba(242,237,226,.45)" font-family="DM Sans" font-size="12" letter-spacing="2">ПРОЦЕСС ИДЁТ САМ</text>
+</svg></div></div>`},
 
 {p:'Архитектура влияния',h:`<h2 class="grad" style="margin-bottom:3vh">Где ты сейчас?</h2>
 <table class="lv">
@@ -446,8 +547,6 @@ const S=[
 </table>`},
 
 /* ===== БЛОК 6 · ФИНАЛ ===== */
-{p:'Финал',h:`<h2>Перестань быть исполнителем своих задач.<br>Стань <span class="grad">владельцем системы</span>, которая их выполняет</h2>`},
-
 {p:'Финал',h:`<div class="quote">Какую задачу из вашей работы хотели бы отдать AI прямо сейчас?</div>`},
 
 {p:'Финал',h:`<h2 style="margin-bottom:3.4vh">Сейчас — окно, которое открыто.<br>Через год оно будет меньше</h2>
