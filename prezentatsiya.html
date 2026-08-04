@@ -24,11 +24,11 @@ body{font-family:var(--font);background-color:var(--black);color:var(--ivory);-w
   background-repeat:repeat;background-size:120px 120px}
 
 #stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
-canvas#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:.40}
-.glow{position:fixed;inset:0;z-index:1;pointer-events:none;
-  background:
-    radial-gradient(1100px 700px at 15% 12%, rgba(155,111,232,.16), transparent 62%),
-    radial-gradient(900px 620px at 88% 84%, rgba(0,196,212,.12), transparent 62%);}
+.orb{position:fixed;pointer-events:none;z-index:0;filter:blur(90px);border-radius:50%}
+.orb-purple{width:600px;height:600px;top:-160px;right:-160px;
+  background:radial-gradient(circle,rgba(155,111,232,.26) 0%,rgba(91,47,190,.09) 60%,transparent 100%)}
+.orb-violet{width:400px;height:400px;bottom:-120px;left:-140px;
+  background:radial-gradient(circle,rgba(122,79,208,.22) 0%,rgba(91,47,190,.06) 60%,transparent 100%)}
 
 .slide{position:absolute;inset:0;z-index:2;display:none;flex-direction:column;
   align-items:center;justify-content:center;padding:6vh 8vw;text-align:center}
@@ -160,8 +160,8 @@ table.lv td:first-child{color:var(--purple-br);font-weight:900;font-size:clamp(2
 </style>
 </head>
 <body>
-<canvas id="bg"></canvas>
-<div class="glow"></div>
+<div class="orb orb-purple"></div>
+<div class="orb orb-violet"></div>
 <div id="stage"></div>
 <div id="bar"></div>
 
@@ -169,7 +169,8 @@ table.lv td:first-child{color:var(--purple-br);font-weight:900;font-size:clamp(2
 const S=[
 /* ===== ПРИВЕТСТВЕННАЯ ЧАСТЬ ===== */
 {p:'Приветствие',h:`<div class="spotlight"></div>
-<img src="shark-neon.png" alt="" style="position:absolute;z-index:0;width:34vw;max-width:460px;right:-3vw;bottom:-5vh;opacity:.34;filter:drop-shadow(0 0 52px rgba(180,140,255,.6));pointer-events:none">
+<img src="shark-neon.png" alt="" style="position:absolute;z-index:0;width:24vw;max-width:320px;left:-3vw;top:50%;transform:translateY(-50%);opacity:.5;filter:drop-shadow(0 0 50px rgba(180,140,255,.6));pointer-events:none">
+<img src="shark-neon.png" alt="" style="position:absolute;z-index:0;width:24vw;max-width:320px;right:-3vw;top:50%;transform:translateY(-50%) scaleX(-1);opacity:.5;filter:drop-shadow(0 0 50px rgba(180,140,255,.6));pointer-events:none">
 <div class="kicker p" style="position:relative;z-index:1">Конференция · WIKKI.OCEAN</div>
 <h1 class="grad" style="position:relative;z-index:1">ОКЕАН<br>ВОЗМОЖНОСТЕЙ</h1>
 <div class="title-divider"></div>
@@ -507,33 +508,6 @@ let tx=0;
 document.addEventListener('touchstart',e=>tx=e.changedTouches[0].clientX,{passive:true});
 document.addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-tx;
   if(Math.abs(d)>50)go(d<0?i+1:i-1)},{passive:true});
-
-/* static ocean backdrop — no animation loop */
-try{
-  const c=document.getElementById('bg'),x=c.getContext('2d');
-  let W,H;
-  function draw(){
-    W=c.width=innerWidth*devicePixelRatio;H=c.height=innerHeight*devicePixelRatio;
-    x.clearRect(0,0,W,H);
-    const waves=[
-      {a:H*.045,f:.0011,y:H*.70,c:'155,111,232',o:.30},
-      {a:H*.055,f:.0008,y:H*.78,c:'0,196,212',o:.24},
-      {a:H*.035,f:.0015,y:H*.86,c:'91,47,190',o:.16}
-    ];
-    waves.forEach(w=>{
-      x.beginPath();x.moveTo(0,H);
-      for(let px=0;px<=W;px+=6){
-        const y=w.y+Math.sin(px*w.f)*w.a+Math.sin(px*w.f*2.3)*w.a*.35;
-        x.lineTo(px,y);
-      }
-      x.lineTo(W,H);x.closePath();
-      const g=x.createLinearGradient(0,w.y-w.a,0,H);
-      g.addColorStop(0,`rgba(${w.c},${w.o})`);g.addColorStop(1,`rgba(${w.c},0)`);
-      x.fillStyle=g;x.fill();
-    });
-  }
-  draw();addEventListener('resize',draw);
-}catch(err){console.error('canvas backdrop failed, continuing without it',err)}
 
 go(0);
 document.documentElement.tabIndex=-1;
