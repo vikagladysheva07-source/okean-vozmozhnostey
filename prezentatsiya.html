@@ -34,11 +34,6 @@ body{font-family:var(--font);background-color:var(--black);color:var(--ivory);-w
   align-items:center;justify-content:center;padding:6vh 8vw;text-align:center}
 .slide.on{display:flex}
 .slide>*{opacity:1}
-
-.spotlight{position:absolute;z-index:0;width:min(70vw,900px);height:min(70vw,900px);
-  top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;
-  background:radial-gradient(circle,rgba(155,111,232,.24) 0%,rgba(0,196,212,.09) 42%,transparent 72%);
-  filter:blur(50px)}
 .title-divider{position:relative;z-index:1;width:56px;height:2px;margin:2.6vh auto 0;border-radius:2px;
   background:linear-gradient(90deg,var(--purple),var(--teal))}
 
@@ -181,8 +176,7 @@ table.lv td:first-child{color:var(--purple-br);font-weight:900;font-size:clamp(2
 <script>
 const S=[
 /* ===== ПРИВЕТСТВЕННАЯ ЧАСТЬ ===== */
-{p:'Приветствие',h:`<div class="spotlight"></div>
-<img src="shark-neon.png" alt="" style="position:absolute;z-index:0;width:24vw;max-width:320px;left:-3vw;top:50%;transform:translateY(-50%);opacity:.5;filter:drop-shadow(0 0 50px rgba(180,140,255,.6));pointer-events:none">
+{p:'Приветствие',h:`<img src="shark-neon.png" alt="" style="position:absolute;z-index:0;width:24vw;max-width:320px;left:-3vw;top:50%;transform:translateY(-50%);opacity:.5;filter:drop-shadow(0 0 50px rgba(180,140,255,.6));pointer-events:none">
 <img src="shark-neon.png" alt="" style="position:absolute;z-index:0;width:24vw;max-width:320px;right:-3vw;top:50%;transform:translateY(-50%) scaleX(-1);opacity:.5;filter:drop-shadow(0 0 50px rgba(180,140,255,.6));pointer-events:none">
 <div class="kicker p" style="position:relative;z-index:1">Конференция · WIKKI.OCEAN</div>
 <h1 class="grad" style="position:relative;z-index:1">ОКЕАН<br>ВОЗМОЖНОСТЕЙ</h1>
