@@ -35,6 +35,13 @@ canvas#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:.40}
 .slide.on{display:flex}
 .slide>*{opacity:1}
 
+.spotlight{position:absolute;z-index:0;width:min(70vw,900px);height:min(70vw,900px);
+  top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;
+  background:radial-gradient(circle,rgba(155,111,232,.24) 0%,rgba(0,196,212,.09) 42%,transparent 72%);
+  filter:blur(50px)}
+.title-divider{position:relative;z-index:1;width:56px;height:2px;margin:2.6vh auto 0;border-radius:2px;
+  background:linear-gradient(90deg,var(--purple),var(--teal))}
+
 .kicker{font-size:clamp(11px,1.05vw,15px);letter-spacing:.12em;text-transform:uppercase;
   color:var(--teal-br);font-weight:600;margin-bottom:2.4vh}
 .kicker.p{color:var(--purple-br)}
@@ -161,8 +168,12 @@ table.lv td:first-child{color:var(--purple-br);font-weight:900;font-size:clamp(2
 <script>
 const S=[
 /* ===== ПРИВЕТСТВЕННАЯ ЧАСТЬ ===== */
-{p:'Приветствие',h:`<img src="shark-neon.png" alt="" style="position:absolute;z-index:0;width:34vw;max-width:460px;right:-3vw;bottom:-5vh;opacity:.34;filter:drop-shadow(0 0 46px rgba(180,140,255,.55));pointer-events:none">
-<h1 class="grad" style="position:relative;z-index:1">ОКЕАН<br>ВОЗМОЖНОСТЕЙ</h1><div class="sub" style="position:relative;z-index:1">4 августа · Чебоксары</div>`},
+{p:'Приветствие',h:`<div class="spotlight"></div>
+<img src="shark-neon.png" alt="" style="position:absolute;z-index:0;width:34vw;max-width:460px;right:-3vw;bottom:-5vh;opacity:.34;filter:drop-shadow(0 0 52px rgba(180,140,255,.6));pointer-events:none">
+<div class="kicker p" style="position:relative;z-index:1">Конференция · WIKKI.OCEAN</div>
+<h1 class="grad" style="position:relative;z-index:1">ОКЕАН<br>ВОЗМОЖНОСТЕЙ</h1>
+<div class="title-divider"></div>
+<div class="sub" style="position:relative;z-index:1;text-transform:uppercase;letter-spacing:.14em;font-weight:600;font-size:clamp(13px,1.4vw,19px)">4 августа · Чебоксары</div>`},
 
 {p:'Приветствие',h:`<div class="bio">
 <div class="bio-photo"><img src="victoria.jpg" alt=""></div>
