@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Океан возможностей — Виктория Гладышева</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,900;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#050508;--deep:#030305;--surface:#0B0716;--surface2:#120C22;
+  --line:rgba(242,237,226,.10);--line2:rgba(242,237,226,.20);
+  --ivory:#F2EDE2;--id:rgba(255,255,255,.87);--idd:rgba(255,255,255,.38);
+  --purple:#9B6FE8;--purple-br:#C4A4FF;--purple-dp:#5B2FBE;
+  --teal:#00C4D4;--teal-br:#5EE0EE;--teal-dp:#007A8C;
+  --font:'DM Sans',system-ui,-apple-system,sans-serif;
+  --ease:cubic-bezier(0.05,0.7,0.1,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:var(--font);background-color:var(--black);color:var(--ivory);-webkit-font-smoothing:antialiased;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat:repeat;background-size:120px 120px}
+
+#stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+canvas#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:.40}
+.glow{position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:
+    radial-gradient(1100px 700px at 15% 12%, rgba(155,111,232,.16), transparent 62%),
+    radial-gradient(900px 620px at 88% 84%, rgba(0,196,212,.12), transparent 62%);}
+
+.slide{position:absolute;inset:0;z-index:2;display:none;flex-direction:column;
+  align-items:center;justify-content:center;padding:6vh 8vw;text-align:center}
+.slide.on{display:flex}
+.slide>*{opacity:1}
+
+.kicker{font-size:clamp(11px,1.05vw,15px);letter-spacing:.12em;text-transform:uppercase;
+  color:var(--teal-br);font-weight:600;margin-bottom:2.4vh}
+.kicker.p{color:var(--purple-br)}
+h1{font-size:clamp(38px,7.4vw,110px);font-weight:900;line-height:1.02;letter-spacing:-.03em;text-transform:uppercase}
+h2{font-size:clamp(30px,4.7vw,68px);font-weight:800;line-height:1.12;letter-spacing:-.025em;max-width:19ch}
+h3{font-size:clamp(24px,3.3vw,48px);font-weight:700;line-height:1.2;letter-spacing:-.02em;max-width:24ch}
+.sub{font-size:clamp(15px,1.6vw,24px);color:var(--id);margin-top:2.6vh;font-weight:400;max-width:44ch;line-height:1.5}
+.src{font-size:clamp(11px,1.05vw,15px);color:var(--idd);margin-top:3.4vh;font-style:italic;letter-spacing:.01em}
+
+.grad{background:linear-gradient(135deg,#FFFFFF 0%,#E8DFFF 25%,#C4A4FF 50%,#9B6FE8 75%,#5B2FBE 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 28px rgba(155,111,232,.35))}
+
+.quote{font-size:clamp(28px,4.6vw,66px);font-weight:700;line-height:1.18;letter-spacing:-.025em;max-width:20ch}
+.quote::before{content:'«'}.quote::after{content:'»'}
+
+/* stat rows */
+.stats{display:flex;flex-direction:column;gap:2.2vh;margin-top:1vh;width:100%;max-width:900px}
+.stat{display:flex;align-items:baseline;justify-content:center;gap:1.4vw;flex-wrap:wrap}
+.stat .n{font-size:clamp(38px,6.2vw,92px);font-weight:900;letter-spacing:-.035em;line-height:1}
+.stat .t{font-size:clamp(14px,1.65vw,25px);color:var(--id);text-align:left;max-width:22ch}
+.n.g{color:var(--ivory)}.n.p{color:var(--purple-br)}.n.t2{color:var(--teal-br)}
+.n.dim{color:var(--idd)}
+
+/* table */
+table{border-collapse:collapse;width:100%;max-width:1080px;margin-top:1vh}
+th,td{padding:1.7vh 1.6vw;text-align:left;font-size:clamp(14px,1.6vw,25px);
+  border-bottom:1px solid var(--line)}
+th{font-size:clamp(11px,1.05vw,15px);letter-spacing:.16em;text-transform:uppercase;
+  color:var(--idd);font-weight:600;padding-bottom:1.2vh}
+td:first-child{color:var(--id)}
+td:last-child{color:var(--ivory);font-weight:500}
+table.acc td:last-child{color:var(--teal-br)}
+table.lv td:first-child{color:var(--purple-br);font-weight:900;font-size:clamp(20px,2.4vw,36px);width:14%}
+
+/* cards */
+.cards{display:flex;gap:1.5vw;flex-wrap:wrap;justify-content:center;width:100%;max-width:1150px;margin-top:1vh}
+.card{flex:1 1 280px;background:rgba(11,7,22,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:1px solid var(--line);border-radius:16px;padding:3vh 2vw;text-align:left;
+  box-shadow:inset 0 1px 0 rgba(196,164,255,.14),0 14px 30px -16px rgba(0,0,0,.8)}
+.card .ct{font-size:clamp(16px,1.85vw,27px);font-weight:700;margin-bottom:1.2vh}
+.card .cd{font-size:clamp(13px,1.4vw,20px);color:var(--id);line-height:1.5}
+.card.pu{border-color:rgba(155,111,232,.34);box-shadow:inset 0 1px 0 rgba(196,164,255,.18),0 14px 30px -16px rgba(0,0,0,.8),0 0 34px -14px rgba(155,111,232,.45)}.card.pu .ct{color:var(--purple-br)}
+.card.te{border-color:rgba(0,196,212,.30);box-shadow:inset 0 1px 0 rgba(196,164,255,.14),0 14px 30px -16px rgba(0,0,0,.8),0 0 34px -14px rgba(0,196,212,.35)}.card.te .ct{color:var(--teal-br)}
+.card.go{border-color:var(--line2);box-shadow:inset 0 1px 0 rgba(196,164,255,.14),0 14px 30px -16px rgba(0,0,0,.8),0 0 30px -14px rgba(255,255,255,.14)}.card.go .ct{color:var(--ivory)}
+
+/* bio slide */
+.bio{display:flex;gap:3vw;align-items:center;width:100%;max-width:1180px;text-align:left}
+.bio-photo{flex:0 0 220px;width:220px;height:280px;border-radius:18px;overflow:hidden;
+  border:1px solid var(--line);
+  box-shadow:inset 0 1px 0 rgba(196,164,255,.14),0 14px 30px -16px rgba(0,0,0,.8),0 0 34px -14px rgba(155,111,232,.4)}
+.bio-photo img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05)}
+.bio-info{flex:1;text-align:left}
+.bio-info h2{text-align:left;max-width:none;margin-bottom:.8vh}
+.bio-role{color:var(--id);font-size:clamp(13px,1.4vw,18px);margin-bottom:1.4vh}
+.bio-tagline{color:var(--purple-br);font-size:clamp(14px,1.55vw,21px);font-weight:600;line-height:1.4;max-width:34ch}
+.bio-list{display:flex;flex-direction:column;gap:1.5vh;margin-top:2.6vh;width:100%;max-width:1180px;text-align:left}
+.bio-item{display:flex;gap:1vw;align-items:flex-start}
+.bio-ico{flex:none;width:2.4vw;min-width:32px;height:2.4vw;min-height:32px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:clamp(13px,1.3vw,18px);
+  background:rgba(155,111,232,.14);border:1px solid rgba(155,111,232,.32)}
+.bio-item b{font-size:clamp(14px,1.45vw,19px);display:block;color:var(--ivory)}
+.bio-item .d{color:var(--id);font-size:clamp(12px,1.2vw,15px);line-height:1.4;margin-top:.2vh}
+.bio-footer{margin-top:2.2vh;width:100%;max-width:1180px;text-align:left;
+  background:rgba(11,7,22,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(0,196,212,.28);border-radius:14px;padding:1.8vh 1.8vw;
+  box-shadow:inset 0 1px 0 rgba(196,164,255,.12),0 12px 26px -16px rgba(0,0,0,.8)}
+.bio-footer .lbl{color:var(--teal-br);font-weight:700;font-size:clamp(11px,1.15vw,14px);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.7vh}
+.bio-footer p{color:var(--id);font-size:clamp(12px,1.25vw,15px);line-height:1.5}
+.bio-pills{display:flex;gap:.6vw;flex-wrap:wrap;margin-top:1.3vh}
+.bio-pill{font-size:clamp(10px,1vw,12px);padding:.5vh 1vw;border-radius:999px;border:1px solid var(--line2);color:var(--id)}
+
+/* bullets */
+.rows{display:flex;flex-direction:column;gap:1.9vh;width:100%;max-width:1000px;margin-top:1vh;text-align:left}
+.row{display:flex;gap:1.3vw;align-items:flex-start;font-size:clamp(15px,1.75vw,27px);line-height:1.42}
+.row .mk{flex:none;font-size:clamp(16px,1.8vw,28px);line-height:1.3}
+.row b{font-weight:700}
+.row .dim{color:var(--id)}
+.prompt{background:rgba(11,7,22,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:1px solid var(--line);border-left:3px solid var(--purple);
+  box-shadow:inset 0 1px 0 rgba(196,164,255,.12),0 12px 26px -16px rgba(0,0,0,.8);
+  border-radius:12px;padding:1.8vh 1.6vw;font-size:clamp(13px,1.5vw,22px);line-height:1.45;text-align:left}
+
+/* level slide */
+.lvhead{display:flex;align-items:center;gap:1.6vw;margin-bottom:1.4vh}
+.lvnum{font-size:clamp(52px,8.4vw,132px);font-weight:900;line-height:.86;letter-spacing:-.05em;
+  background:linear-gradient(160deg,var(--teal-br),var(--purple-br));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lvname{font-size:clamp(26px,3.6vw,54px);font-weight:800;letter-spacing:-.02em;text-align:left}
+.lvsub{font-size:clamp(14px,1.55vw,23px);color:var(--teal-br);font-style:italic;margin-top:.4vh}
+.lvbody{display:flex;flex-direction:column;gap:1.6vh;max-width:1000px;text-align:left;margin-top:1.6vh}
+.lvline{font-size:clamp(14px,1.6vw,24px);line-height:1.48;color:var(--id)}
+.lvline b{color:var(--ivory);font-weight:700}
+.lvnext{margin-top:1.6vh;padding:1.5vh 1.7vw;border-radius:12px;
+  background:rgba(155,111,232,.13);border:1px solid rgba(155,111,232,.32);
+  font-size:clamp(14px,1.6vw,24px);color:var(--purple-br);font-weight:600;text-align:left}
+
+.pill{display:inline-block;padding:.75vh 1.5vw;border-radius:999px;border:1px solid var(--line2);
+  font-size:clamp(11px,1.1vw,16px);letter-spacing:.14em;text-transform:uppercase;color:var(--id);
+  font-weight:600;margin-bottom:2.6vh}
+
+/* live demo marker */
+.live{display:inline-flex;align-items:center;gap:.6vw;padding:.9vh 1.6vw;border-radius:999px;
+  border:1px solid rgba(0,196,212,.4);background:rgba(0,196,212,.08);
+  font-size:clamp(12px,1.2vw,17px);letter-spacing:.14em;text-transform:uppercase;color:var(--teal-br);
+  font-weight:700;margin-bottom:3vh}
+.live .dot{width:.7vw;height:.7vw;min-width:9px;min-height:9px;border-radius:50%;background:var(--teal-br);
+  box-shadow:0 0 10px var(--teal)}
+.demo-num{font-size:clamp(64px,10vw,150px);font-weight:900;line-height:.86;letter-spacing:-.04em;
+  background:linear-gradient(160deg,var(--teal-br),var(--purple-br));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+.hint{font-size:clamp(12px,1.25vw,18px);color:var(--teal-br);margin-top:3vh;font-weight:600;letter-spacing:.02em}
+
+/* chrome */
+#bar{position:fixed;left:0;top:0;height:3px;background:linear-gradient(90deg,var(--purple),var(--teal));z-index:20;transition:width .35s var(--ease)}
+@media print{#bar{display:none}}
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+<div class="glow"></div>
+<div id="stage"></div>
+<div id="bar"></div>
+
+<script>
+const S=[
+/* ===== ПРИВЕТСТВЕННАЯ ЧАСТЬ ===== */
+{p:'Приветствие',h:`<img src="shark-neon.png" alt="" style="position:absolute;z-index:0;width:34vw;max-width:460px;right:-3vw;bottom:-5vh;opacity:.34;filter:drop-shadow(0 0 46px rgba(180,140,255,.55));pointer-events:none">
+<h1 class="grad" style="position:relative;z-index:1">ОКЕАН<br>ВОЗМОЖНОСТЕЙ</h1><div class="sub" style="position:relative;z-index:1">4 августа · Чебоксары</div>`},
+
+{p:'Приветствие',h:`<div class="bio">
+<div class="bio-photo"><img src="victoria.jpg" alt=""></div>
+<div class="bio-info">
+<div class="kicker p">Спикер</div>
+<h2>ВИКТОРИЯ ГЛАДЫШЕВА</h2>
+<div class="bio-role">Маркетолог-стратег · Архитектор систем роста · Основатель WIKKI.OCEAN</div>
+<div class="bio-tagline">Бизнес не должен зависеть от одного человека — он должен работать как система. Именно это я строю для каждого клиента.</div>
+</div>
+</div>
+<div class="bio-list">
+<div class="bio-item"><div class="bio-ico">💼</div><div><b>100+ проектов за 5 лет</b><div class="d">Системный маркетинг и AI — от личных брендов до международных запусков</div></div></div>
+<div class="bio-item"><div class="bio-ico">🏛️</div><div><b>Президентская кампания</b><div class="d">Руководство digital-командой кандидата в президенты: медийная повестка, управление охватом. Детали под NDA</div></div></div>
+<div class="bio-item"><div class="bio-ico">🌍</div><div><b>Офлайн-запуск в Москве</b><div class="d">100+ участников со всего мира · ≈ 33 000 € за один день</div></div></div>
+<div class="bio-item"><div class="bio-ico">🤖</div><div><b>AI-архитектура для бизнеса</b><div class="d">Автоматизация продаж, поддержки и внутренних процессов через AI-агентов</div></div></div>
+</div>
+<div class="bio-footer">
+<div class="lbl">WIKKI.OCEAN</div>
+<p>Каждый бизнес — это океан потенциала. WIKKI.OCEAN превращает его в систему: маркетинг, который строит влияние, и AI-архитектура, которая закрывает задачи целых отделов.</p>
+<div class="bio-pills"><div class="bio-pill">Маркетинг</div><div class="bio-pill">AI-архитектура</div><div class="bio-pill">Системы роста</div><div class="bio-pill">RU + EN</div></div>
+</div>`},
+
+{p:'Приветствие',h:`<div class="kicker">Обещание дня</div>
+<h2>Сегодня вы уйдёте отсюда с <span class="grad">одним действием</span>, которое может кратно повлиять на ваш рост</h2>`},
+
+{p:'Приветствие',h:`<div class="kicker">Программа</div>
+<div class="rows" style="max-width:900px">
+<div class="row"><span class="mk" style="color:var(--purple-br)">01</span><span><b>Нейросети и влияние</b><br><span class="dim">Как расширить свои возможности</span></span></div>
+<div class="row"><span class="mk" style="color:var(--teal-br)">02</span><span><b>AI в деле</b><br><span class="dim">Живая демонстрация на экране</span></span></div>
+<div class="row"><span class="mk" style="color:var(--teal-br)">03</span><span><b>Разборы и практика</b><br><span class="dim">Ваши ситуации прямо в зале</span></span></div>
+<div class="row"><span class="mk" style="color:var(--purple-br)">04</span><span><b>Нетворкинг и афтепати</b></span></div>
+</div>`},
+
+{p:'Приветствие',h:`<div class="quote grad">Зачем ты сюда пришёл?</div>
+<div class="hint">Запишите одно предложение · 30 секунд</div>`},
+
+{p:'Приветствие',h:`<h1 class="grad">Начинаем.</h1>`},
+
+/* ===== ВЫСТУПЛЕНИЕ 1 · БЛОК 1 ===== */
+{p:'Выступление 1',h:`<div class="kicker p">Нейросети и влияние</div>
+<h1 style="font-size:clamp(30px,5.2vw,76px);max-width:17ch">Как расширить<br><span class="grad">свои возможности</span></h1>`},
+
+{p:'Блок 1 · Вход',h:`<div class="quote">Что если самое большое твоё ограничение — это твоё время?</div>`},
+
+{p:'Блок 1 · Вход',h:`<table><tr><th>Ты хочешь</th><th>Что мешает</th></tr>
+<tr><td>Больше клиентов</td><td>Нет времени на привлечение</td></tr>
+<tr><td>Расти быстрее</td><td>Тонешь в операционке</td></tr>
+<tr><td>Делегировать</td><td>Дорого нанимать</td></tr>
+<tr><td>Чтобы о тебе знали</td><td>Не знаешь с чего начать</td></tr></table>
+<div class="hint">🙋 Поднимите руку — знакомо?</div>`},
+
+{p:'Блок 1 · Вход',h:`<div class="kicker">Вопрос залу</div>
+<h2>Сколько часов в неделю освобождает себе человек, который просто пользуется AI каждый день?</h2>
+<div class="hint">Крикните цифру</div>`},
+
+{p:'Блок 1 · Вход',h:`<div class="stats">
+<div class="stat"><span class="n g">4 часа</span><span class="t">в неделю — у трети тех, кто пользуется AI ежедневно</span></div>
+<div class="stat"><span class="n p">184 часа</span><span class="t">в год = 23 рабочих дня</span></div>
+<div class="stat"><span class="n t2">= месяц</span><span class="t">вашей жизни</span></div>
+</div>
+<div class="src">Федеральный резервный банк Сент-Луиса · Вандербильт · Гарвард</div>`},
+
+/* ===== БЛОК 2 ===== */
+{p:'Блок 2 · Что такое AI',h:`<h2>AI — очень умный сотрудник, с которым вы общаетесь <span class="grad">обычным языком</span></h2>`},
+
+{p:'Блок 2 · Что такое AI',h:`<div class="rows" style="max-width:960px">
+<div class="row"><span class="mk" style="color:var(--idd)">2022–2023</span><span class="dim">ChatGPT: 100 млн пользователей за 2 месяца. Выходит Claude</span></div>
+<div class="row"><span class="mk" style="color:var(--teal-br)">2024–2026</span><span><b>Появляются агенты</b></span></div>
+</div>
+<div class="cards" style="margin-top:3.2vh">
+<div class="card te"><div class="ct">ЧАТ</div><div class="cd">Ты просишь — он отвечает. Дальше делаешь сам</div></div>
+<div class="card pu"><div class="ct">АГЕНТ</div><div class="cd">Ты один раз объяснил правила — дальше он работает без тебя</div></div>
+</div>`},
+
+{p:'Блок 2 · Что такое AI',h:`<div class="kicker">Три мифа</div>
+<div class="rows" style="max-width:940px">
+<div class="row"><span class="mk">❌</span><span>«Это сложно — нужно уметь программировать»</span></div>
+<div class="row"><span class="mk">❌</span><span>«AI пишет шаблонно и безлично»</span></div>
+<div class="row"><span class="mk">❌</span><span>«Это только для больших компаний»</span></div>
+</div>`},
+
+{p:'Блок 2 · Что такое AI',h:`<div class="kicker">Стэнфорд и MIT · 5 179 сотрудников · Quarterly Journal of Economics</div>
+<div class="stats">
+<div class="stat"><span class="n t2">+14%</span><span class="t">в среднем по всем</span></div>
+<div class="stat"><span class="n g">+34%</span><span class="t">у новичков и слабых сотрудников</span></div>
+<div class="stat"><span class="n dim">≈ 0%</span><span class="t">у самых опытных</span></div>
+</div>
+<div class="src">Больше всех выигрывает тот, кто сегодня знает меньше всех</div>`},
+
+/* ===== БЛОК 3 ===== */
+{p:'Блок 3 · Что меняется',h:`<h2>AI не заменяет тебя —<br>он тебя <span class="grad">масштабирует</span></h2>`},
+
+{p:'Блок 3 · Что меняется',h:`<table class="acc"><tr><th>Без AI</th><th>С AI</th></tr>
+<tr><td>1 человек = 1 человек</td><td>1 человек = мини-команда</td></tr>
+<tr><td>Платишь за каждого исполнителя</td><td>Один инструмент закрывает несколько ролей</td></tr>
+<tr><td>Масштаб = найм</td><td>Масштаб = настройка</td></tr>
+<tr><td>Зависишь от настроения людей</td><td>Система работает стабильно</td></tr></table>
+<div class="hint">🙋 Кто пробовал? · Кто остался доволен?</div>`},
+
+{p:'Блок 3 · Что меняется',h:`<div class="kicker">AI уже сегодня делает за вас</div>
+<div class="rows" style="max-width:1000px">
+<div class="prompt"><b>Пишет тексты в вашем стиле</b><br><span style="color:var(--id)">«Напиши пост на тему [X] в стиле [пример моего текста]»</span></div>
+<div class="prompt"><b>Готовит идеи и материалы</b><br><span style="color:var(--id)">«Я занимаюсь [ниша]. Придумай 10 идей для контента на неделю»</span></div>
+<div class="prompt"><b>Адаптирует одно под всё</b><br><span style="color:var(--id)">«Вот пост. Сделай из него сторис, email и LinkedIn-заметку»</span></div>
+</div>`},
+
+{p:'Блок 3 · Что меняется',h:`<h2 style="max-width:24ch">Одна мысль <span class="grad">× AI</span> = 10+ готовых материалов</h2>
+<div class="sub" style="max-width:56ch">Пост → видео → рассылка → презентация → скрипт для отдела продаж → ответы на частые вопросы клиентов</div>`},
+
+{p:'Блок 3 · Что меняется',h:`<div class="quote">Я не стала работать меньше. Я стала делать в несколько раз больше за то же время</div>
+<div class="src">Виктория Гладышева</div>`},
+
+/* ===== БЛОК 4 ===== */
+{p:'Блок 4 · Влияние',h:`<div class="quote">Назовите трёх экспертов в вашей нише. Быстро</div>`},
+
+{p:'Блок 4 · Влияние',h:`<h2 class="grad" style="max-width:26ch">Присутствие + Время = Доверие = Деньги</h2>
+<div class="sub" style="max-width:40ch">Экспертиза есть — присутствия нет.<br>Главная проблема большинства.</div>`},
+
+{p:'Блок 4 · Влияние',h:`<div class="cards" style="max-width:1100px">
+<div class="card"><div class="ct" style="color:var(--idd)">БЕЗ системы</div><div class="cd">выгорание → пропадаешь → аудитория забывает → начинаешь заново</div></div>
+<div class="card te"><div class="ct">С AI-системой</div><div class="cd">один раз настроил → выходит регулярно → доверие накапливается → клиенты приходят сами</div></div>
+</div>
+<div class="src">Кейс: 3 клиента в месяц → 11 входящих заявок за 3 месяца</div>`},
+
+{p:'Блок 4 · Влияние',h:`<h2>Влияние измеряется <span class="grad">регулярностью</span>, с которой о тебе знают</h2>
+<div class="hint">🙋 Повернитесь к соседу · 60 секунд</div>`},
+
+/* ===== БЛОК 5 ===== */
+{p:'Блок 5 · С чего начать',h:`<div class="cards">
+<div class="card pu"><div class="ct">Claude</div><div class="cd">Стратегия, тексты, длинная работа</div></div>
+<div class="card te"><div class="ct">ChatGPT</div><div class="cd">Самый известный, много интеграций</div></div>
+<div class="card go"><div class="ct">Gemini</div><div class="cd">Данные и документы</div></div>
+</div>
+<div class="hint" style="font-size:clamp(16px,2vw,30px);margin-top:4vh">Возьмите ОДИН. Не три.</div>`},
+
+{p:'Блок 5 · С чего начать',h:`<div class="kicker">Ошибка № 1</div>
+<h3>Задать запрос без контекста и разочароваться</h3>
+<div class="rows" style="max-width:1000px;margin-top:3vh">
+<div class="row"><span class="mk">❌</span><span class="dim">«Напиши пост про маркетинг»</span></div>
+<div class="row"><span class="mk">✅</span><span>«Напиши пост про маркетинг для малого бизнеса, в стиле дружелюбного эксперта, без воды, 150–200 слов, с вопросом в конце»</span></div>
+</div>`},
+
+{p:'Блок 5 · С чего начать',h:`<div class="rows" style="max-width:1000px">
+<div class="row"><span class="mk" style="color:var(--idd)">№2</span><span><b>Попробовать один раз и бросить</b></span></div>
+<div class="row"><span class="mk" style="color:var(--idd)">№3</span><span><b>Поверить ему на слово</b></span></div>
+</div>
+<div class="cards" style="margin-top:3.4vh">
+<div class="card te"><div class="ct">✅ Доверяй</div><div class="cd">Тексты, идеи, структура, черновики</div></div>
+<div class="card go"><div class="ct">⚠️ Проверяй всегда</div><div class="cd">Цифры, факты, законы, ссылки</div></div>
+</div>
+<div class="src">Гарвард и BCG, 758 консультантов: на задачах вне возможностей AI ошибались на 19 п.п. чаще</div>`},
+
+/* ===== БЛОК 5-А · УРОВНИ ===== */
+{p:'Архитектура влияния',h:`<div class="kicker p">Архитектура влияния</div>
+<h2 style="margin-bottom:3vh">Пять уровней владения AI</h2>
+<table class="lv">
+<tr><td>1</td><td>ЧАТ</td><td style="color:var(--id)">открыл, спросил, закрыл</td></tr>
+<tr><td>2</td><td>ПРОЕКТЫ</td><td style="color:var(--id)">он помнит, кто ты</td></tr>
+<tr><td>3</td><td>COWORK</td><td style="color:var(--id)">работает с твоими файлами</td></tr>
+<tr><td>4</td><td>КОННЕКТОРЫ</td><td style="color:var(--id)">сам заходит в твои сервисы</td></tr>
+<tr><td>5</td><td>СИСТЕМА</td><td style="color:var(--id)">работает без тебя</td></tr>
+</table>
+<div class="src">Помните: 4 часа в неделю — это первый уровень</div>`},
+
+{p:'Уровень 1',h:`<div class="lvhead"><div class="lvnum">1</div><div><div class="lvname">ЧАТ</div><div class="lvsub">«Умный незнакомец, который забывает тебя каждый раз»</div></div></div>
+<div class="lvbody">
+<div class="lvline"><b>Ты здесь, если:</b> открываешь новый чат, объясняешь всё заново, получаешь ответ, переписываешь половину. Завтра — сначала</div>
+<div class="lvline"><b>Что уже даёт:</b> ответы, идеи, письма, переводы, разбор текста</div>
+<div class="lvnext">→ Следующий шаг: создай Проект и напиши туда, кто ты</div>
+</div>`},
+
+{p:'Уровень 2',h:`<div class="lvhead"><div class="lvnum">2</div><div><div class="lvname">ПРОЕКТЫ</div><div class="lvsub">«AI знает, кто ты — и помнит это всегда»</div></div></div>
+<div class="lvbody">
+<div class="lvline"><b>Ты здесь, если:</b> каждый раз вставляешь «напоминаю: я работаю в такой-то сфере...»</div>
+<div class="lvline"><b>Что открывается:</b> контекст подтягивается сам · разные проекты под разные задачи · на выходе готовые файлы, а не текст в чате</div>
+<div class="lvnext">→ Следующий шаг: скачай приложение на компьютер</div>
+</div>`},
+
+{p:'Уровень 3',h:`<div class="lvhead"><div class="lvnum">3</div><div><div class="lvname">COWORK</div><div class="lvsub">«Сотрудник с доступом к твоему компьютеру»</div></div></div>
+<div class="lvbody">
+<div class="lvline"><b>Ты здесь, если:</b> копируешь файлы в чат и обратно руками, каждую неделю запускаешь одно и то же</div>
+<div class="lvline"><b>Что открывается:</b> видит твои папки и файлы · работает за компьютером как человек · готовые сценарии под повторяющиеся задачи · ставишь задачу с телефона — приходишь, результат готов</div>
+<div class="lvnext">→ Следующий шаг: подключи первый коннектор</div>
+</div>`},
+
+{p:'Уровень 4',h:`<div class="lvhead"><div class="lvnum">4</div><div><div class="lvname">КОННЕКТОРЫ</div><div class="lvsub">«Он идёт туда, где лежат твои данные»</div></div></div>
+<div class="lvbody">
+<div class="lvline"><b>Ты здесь, если:</b> копируешь данные из одного сервиса, а результат руками переносишь в другой</div>
+<div class="lvline"><b>Что открывается:</b> прямой доступ к почте, таблицам, CRM, базе клиентов · несколько агентов работают параллельно — один пишет, второй проверяет, третий оформляет</div>
+<div class="lvnext">→ Следующий шаг: опиши словами процесс, который повторяется каждую неделю</div>
+</div>`},
+
+{p:'Уровень 5',h:`<div class="lvhead"><div class="lvnum">5</div><div><div class="lvname">СИСТЕМА</div><div class="lvsub">«Один человек делает работу отдела»</div></div></div>
+<div class="lvbody">
+<div class="lvline"><b>Что открывается:</b> процессы идут без тебя · описал словами — получил рабочую программу · агенты работают, пока ноутбук закрыт · ты проектируешь, а не выполняешь</div>
+<div class="lvline"><b>Застревают на одной мысли:</b> «это только для тех, кто умеет программировать». Входной билет — не код, а умение описать свой процесс словами</div>
+</div>`},
+
+{p:'Архитектура влияния',h:`<h2 class="grad" style="margin-bottom:3vh">Где ты сейчас?</h2>
+<table class="lv">
+<tr><th>Уровень</th><th>Твой следующий шаг</th></tr>
+<tr><td>1</td><td>Создай Проект и напиши туда о себе</td></tr>
+<tr><td>2</td><td>Скачай приложение, попробуй работу с файлами</td></tr>
+<tr><td>3</td><td>Подключи один коннектор</td></tr>
+<tr><td>4</td><td>Опиши процесс словами — получи инструмент</td></tr>
+<tr><td>5</td><td>Свой агент, который работает без тебя</td></tr>
+</table>
+<div class="hint">🙋 Поднимите руку — найдите себя</div>`},
+
+/* ===== БЛОК 6 · ФИНАЛ ===== */
+{p:'Финал',h:`<h2>Перестань быть исполнителем своих задач.<br>Стань <span class="grad">владельцем системы</span>, которая их выполняет</h2>`},
+
+{p:'Финал',h:`<div class="quote">Какую задачу из вашей работы хотели бы отдать AI прямо сейчас?</div>
+<div class="hint">🙋 Разбираем вживую</div>`},
+
+{p:'Финал',h:`<h2 style="margin-bottom:3.4vh">Сейчас — окно, которое открыто.<br>Через год оно будет меньше</h2>
+<div class="stats" style="max-width:820px">
+<div class="stat"><span class="n t2">88%</span><span class="t">компаний уже используют AI</span></div>
+<div class="stat"><span class="n g">единицы %</span><span class="t">используют агентов</span></div>
+</div>
+<div class="src">Стэнфордский университет, AI Index 2026</div>`},
+
+{p:'Финал',h:`<h1 class="grad" style="font-size:clamp(34px,6.4vw,96px)">Возможности.<br>Система.<br>Сейчас.</h1>`},
+
+{p:'One more thing',h:`<h1 style="font-size:clamp(30px,5.2vw,78px)">И ещё одна вещь.</h1>`,dark:true},
+
+{p:'Финал',h:`<div class="quote">Что если самое большое твоё ограничение — это твоё время?</div>
+<div class="src">Ответ у вас уже есть</div>`},
+
+{p:'',h:`<h1 class="grad">WIKKI.OCEAN</h1><div class="sub">@wikki.shark</div>
+<div class="src">Маркетинг, который строит влияние.<br>AI-архитектура, которая закрывает задачи целых отделов.</div>`},
+
+/* ===== ВЫСТУПЛЕНИЕ 2 · AI В ДЕЛЕ ===== */
+{p:'AI в деле',h:`<div class="live"><span class="dot"></span>Прямо сейчас, вживую</div>
+<h1 style="font-size:clamp(30px,5.2vw,80px)">Три задачи.<br><span class="grad">Живьём.</span></h1>
+<div class="sub" style="max-width:46ch">Без монтажа и без дублей. То же самое вы откроете у себя сегодня вечером</div>`},
+
+{p:'AI в деле',h:`<div class="kicker p">Что дальше</div>
+<div class="rows" style="max-width:820px">
+<div class="row"><span class="mk" style="color:var(--purple-br)">01</span><span><b>Контент-агент</b><br><span class="dim">Одна мысль превращается в готовый набор материалов</span></span></div>
+<div class="row"><span class="mk" style="color:var(--teal-br)">02</span><span><b>Продажи и CRM</b><br><span class="dim">Лид приходит — агент квалифицирует и отвечает сам</span></span></div>
+<div class="row"><span class="mk" style="color:var(--purple-br)">03</span><span><b>Операционка</b><br><span class="dim">Таблица данных превращается в готовый вывод за секунды</span></span></div>
+</div>`},
+
+/* --- ДЕМО 1: КОНТЕНТ-АГЕНТ --- */
+{p:'Демо 1 · Контент-агент',h:`<div class="demo-num">01</div>
+<h2 style="margin-top:1.4vh">Контент-агент</h2>
+<div class="sub" style="max-width:46ch">Пост занимает час. У агента, который знает ваш стиль, — пять минут</div>`},
+
+{p:'Демо 1 · Контент-агент',h:`<div class="kicker">Что увидите</div>
+<div class="prompt" style="max-width:920px">Одна мысль → пост в вашем стиле, сторис, письмо в рассылку и карусель — за один запуск, без повторного объяснения кто вы</div>
+<div class="hint">🙋 Дайте тему из зала — беру любую</div>`},
+
+{p:'Демо 1 · Контент-агент',h:`<div class="live"><span class="dot"></span>Смотрим на экране</div>
+<h2>Запускаю агента на вашу тему</h2>`},
+
+{p:'Демо 1 · Контент-агент',h:`<div class="kicker">Сегодня вечером</div>
+<h3 style="max-width:28ch">Заведите один Проект и загрузите в него три своих лучших текста</h3>
+<div class="sub" style="max-width:44ch">Дальше агент пишет вашим голосом с первого запроса, а не с десятого</div>`},
+
+/* --- ДЕМО 2: ПРОДАЖИ И CRM --- */
+{p:'Демо 2 · Продажи и CRM',h:`<div class="demo-num">02</div>
+<h2 style="margin-top:1.4vh">Продажи и CRM</h2>
+<div class="sub" style="max-width:46ch">Лид пишет в 23:00. Клиент должен получить ответ, а не тишину до утра</div>`},
+
+{p:'Демо 2 · Продажи и CRM',h:`<div class="kicker">Что увидите</div>
+<div class="prompt" style="max-width:920px">Пишу сообщение как реальный лид → агент читает историю переписки, квалифицирует, готовит ответ и сам обновляет статус в CRM</div>
+<div class="hint">🙋 Дайте формулировку — как вам обычно пишут клиенты</div>`},
+
+{p:'Демо 2 · Продажи и CRM',h:`<div class="live"><span class="dot"></span>Смотрим на экране</div>
+<h2>Агент отвечает клиенту</h2>`},
+
+{p:'Демо 2 · Продажи и CRM',h:`<div class="kicker">Сегодня вечером</div>
+<h3 style="max-width:28ch">Дайте агенту три примера своих лучших ответов клиентам</h3>
+<div class="sub" style="max-width:44ch">Он подхватит тон и логику квалификации с первого дня, не с десятого лида</div>`},
+
+/* --- ДЕМО 3: ОПЕРАЦИОНКА --- */
+{p:'Демо 3 · Операционка',h:`<div class="demo-num">03</div>
+<h2 style="margin-top:1.4vh">Операционка</h2>
+<div class="sub" style="max-width:46ch">Отчёт за месяц — это не анализ. Это копирование чисел из одной таблицы в другую</div>`},
+
+{p:'Демо 3 · Операционка',h:`<div class="kicker">Что увидите</div>
+<div class="prompt" style="max-width:920px">Загружаю таблицу с реальными данными → агент находит три главных вывода и говорит, что с ними делать. Тридцать секунд</div>
+<div class="hint">🙋 Кто готов дать свою таблицу — поднимите руку</div>`},
+
+{p:'Демо 3 · Операционка',h:`<div class="live"><span class="dot"></span>Смотрим на экране</div>
+<h2>Считаем вживую</h2>`},
+
+{p:'Демо 3 · Операционка',h:`<div class="kicker">Сегодня вечером</div>
+<h3 style="max-width:30ch">Это уровень 3 из тех пяти, что мы разбирали в начале дня</h3>
+<div class="sub" style="max-width:44ch">Агент работает с вашими файлами напрямую — подключите первую таблицу, с которой имеете дело каждую неделю</div>`},
+
+/* --- ЗАКРЫТИЕ БЛОКА --- */
+{p:'AI в деле · Финал',h:`<h2 style="max-width:22ch">Три задачи.<br>Один вечер, чтобы повторить <span class="grad">одну</span></h2>
+<div class="sub" style="max-width:44ch">Не берите все три сразу. Возьмите ту, что забирает у вас больше всего времени каждую неделю</div>`},
+
+{p:'AI в деле · Финал',h:`<div class="kicker p">Дальше</div>
+<h1 style="font-size:clamp(34px,6vw,90px)">Ваша<br><span class="grad">очередь.</span></h1>
+<div class="sub" style="max-width:40ch">Разбираем ваши ситуации прямо в зале</div>`}
+];
+
+function showFatalError(err){
+  const b=document.createElement('div');
+  b.style.cssText='position:fixed;inset:0;z-index:999;background:#300;color:#fff;font:16px monospace;padding:30px;overflow:auto;white-space:pre-wrap';
+  b.textContent='ОШИБКА В ПРЕЗЕНТАЦИИ — покажи это Claude:\n\n'+(err&&err.stack||err);
+  document.body.appendChild(b);
+}
+try{
+const stage=document.getElementById('stage'),bar=document.getElementById('bar');
+let i=0;
+S.forEach((s,k)=>{const d=document.createElement('div');d.className='slide';d.dataset.k=k;
+  d.innerHTML=s.h;if(s.dark)d.style.background='#000';stage.appendChild(d);});
+const els=[...document.querySelectorAll('.slide')];
+function go(n){
+  n=Math.max(0,Math.min(S.length-1,n));
+  els[i].classList.remove('on');i=n;
+  const e=els[i];e.classList.remove('on');void e.offsetWidth;e.classList.add('on');
+  bar.style.width=((i+1)/S.length*100)+'%';
+}
+document.addEventListener('keydown',e=>{
+  const k=e.key;
+  if(k==='ArrowRight'||k==='ArrowDown'||k===' '||k==='PageDown'||k==='Enter'){e.preventDefault();go(i+1)}
+  else if(k==='ArrowLeft'||k==='ArrowUp'||k==='PageUp'||k==='Backspace'){e.preventDefault();go(i-1)}
+  else if(k==='Home'){go(0)} else if(k==='End'){go(S.length-1)}
+  else if(k==='f'||k==='F'||k==='а'||k==='А'){
+    document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}
+});
+document.addEventListener('click',e=>{go(e.clientX<innerWidth*0.25?i-1:i+1)});
+document.addEventListener('pointerup',e=>{if(e.pointerType!=='mouse')go(e.clientX<innerWidth*0.25?i-1:i+1)});
+let tx=0;
+document.addEventListener('touchstart',e=>tx=e.changedTouches[0].clientX,{passive:true});
+document.addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-tx;
+  if(Math.abs(d)>50)go(d<0?i+1:i-1)},{passive:true});
+
+/* static ocean backdrop — no animation loop */
+try{
+  const c=document.getElementById('bg'),x=c.getContext('2d');
+  let W,H;
+  function draw(){
+    W=c.width=innerWidth*devicePixelRatio;H=c.height=innerHeight*devicePixelRatio;
+    x.clearRect(0,0,W,H);
+    const waves=[
+      {a:H*.045,f:.0011,y:H*.70,c:'155,111,232',o:.30},
+      {a:H*.055,f:.0008,y:H*.78,c:'0,196,212',o:.24},
+      {a:H*.035,f:.0015,y:H*.86,c:'91,47,190',o:.16}
+    ];
+    waves.forEach(w=>{
+      x.beginPath();x.moveTo(0,H);
+      for(let px=0;px<=W;px+=6){
+        const y=w.y+Math.sin(px*w.f)*w.a+Math.sin(px*w.f*2.3)*w.a*.35;
+        x.lineTo(px,y);
+      }
+      x.lineTo(W,H);x.closePath();
+      const g=x.createLinearGradient(0,w.y-w.a,0,H);
+      g.addColorStop(0,`rgba(${w.c},${w.o})`);g.addColorStop(1,`rgba(${w.c},0)`);
+      x.fillStyle=g;x.fill();
+    });
+  }
+  draw();addEventListener('resize',draw);
+}catch(err){console.error('canvas backdrop failed, continuing without it',err)}
+
+go(0);
+document.documentElement.tabIndex=-1;
+document.documentElement.focus();
+window.focus();
+}catch(err){showFatalError(err)}
+</script>
+</body>
+</html>
