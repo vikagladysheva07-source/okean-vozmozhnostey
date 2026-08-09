@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Твой промпт-инженер — ОКЕАН ВОЗМОЖНОСТЕЙ</title>
+<meta name="description" content="Подарок участникам конференции «Океан возможностей»: готовый промпт, который превращает нейросеть в личного промпт-инженера. Скопируй и пользуйся.">
+<meta property="og:title" content="Твой промпт-инженер — ОКЕАН ВОЗМОЖНОСТЕЙ">
+<meta property="og:description" content="Готовый промпт, который превращает нейросеть в личного промпт-инженера. Инструкция из трёх шагов.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A6%88%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,900;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black:      #050508;
+  --surface:    #0B0716;
+  --ivory:      #F2EDE2;
+  --id:         rgba(255,255,255,.87);
+  --id2:        rgba(255,255,255,.60);
+  --idd:        rgba(255,255,255,.38);
+  --line:       rgba(242,237,226,.10);
+  --purple:     #9B6FE8;
+  --purple-br:  #C4A4FF;
+  --purple-dp:  #5B2FBE;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--black);
+  color: var(--id);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 120px 120px;
+}
+::selection { background: rgba(155,111,232,.35); color: #fff; }
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+
+/* ambient orbs */
+.orb { position: fixed; pointer-events: none; z-index: -1; filter: blur(90px); border-radius: 50%; }
+.orb-purple {
+  width: 600px; height: 600px; top: -180px; right: -160px;
+  background: radial-gradient(circle, rgba(155,111,232,.26) 0%, rgba(91,47,190,.09) 60%, transparent 100%);
+}
+.orb-violet {
+  width: 420px; height: 420px; bottom: -140px; left: -150px;
+  background: radial-gradient(circle, rgba(122,79,208,.22) 0%, rgba(91,47,190,.06) 60%, transparent 100%);
+}
+
+/* 3D cubes */
+.cube-wrap { position: absolute; pointer-events: none; z-index: 0; animation: cube-bob 8s ease-in-out infinite alternate; }
+@keyframes cube-bob { from { transform: translateY(0); } to { transform: translateY(-26px); } }
+.cube { position: relative; width: var(--s); height: var(--s); transform-style: preserve-3d; animation: cube-spin 30s linear infinite; }
+@keyframes cube-spin {
+  from { transform: rotateX(-22deg) rotateY(0deg); }
+  to { transform: rotateX(-22deg) rotateY(360deg); }
+}
+.cube i {
+  position: absolute; inset: 0; display: block;
+  background: linear-gradient(135deg, rgba(155,111,232,.20), rgba(91,47,190,.05));
+  border: 1px solid rgba(196,164,255,.38);
+  box-shadow: 0 0 26px -8px rgba(155,111,232,.55), inset 0 0 20px rgba(155,111,232,.14);
+}
+.cube i:nth-child(1) { transform: rotateY(0deg) translateZ(calc(var(--s) / 2)); }
+.cube i:nth-child(2) { transform: rotateY(90deg) translateZ(calc(var(--s) / 2)); }
+.cube i:nth-child(3) { transform: rotateY(180deg) translateZ(calc(var(--s) / 2)); }
+.cube i:nth-child(4) { transform: rotateY(270deg) translateZ(calc(var(--s) / 2)); }
+.cube i:nth-child(5) { transform: rotateX(90deg) translateZ(calc(var(--s) / 2)); }
+.cube i:nth-child(6) { transform: rotateX(-90deg) translateZ(calc(var(--s) / 2)); }
+
+/* header */
+.page-header { padding: 22px 0; border-bottom: 1px solid var(--line); position: relative; z-index: 2; }
+.page-header .container { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.logo-img { height: 28px; width: auto; filter: drop-shadow(0 0 10px rgba(155,111,232,.35)); }
+.header-meta { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--idd); }
+
+.container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+/* hero */
+main {
+  flex: 1; position: relative;
+  padding: 70px 0 90px;
+  background:
+    radial-gradient(ellipse 80% 55% at 50% 0%, rgba(91,47,190,.24), transparent 62%),
+    linear-gradient(180deg, var(--surface) 0%, var(--black) 60%);
+}
+
+.eyebrow {
+  text-align: center; margin-bottom: 18px;
+  font-size: 11px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--purple-br); text-shadow: 0 0 18px rgba(155,111,232,.5);
+}
+
+h1 {
+  text-align: center;
+  font-size: clamp(28px, 4.4vw, 46px); font-weight: 900;
+  letter-spacing: -0.03em; line-height: 1.1; text-transform: uppercase;
+  background: linear-gradient(135deg, #FFFFFF 0%, #E8DFFF 25%, #C4A4FF 50%, #9B6FE8 75%, #5B2FBE 100%);
+  background-size: 300% 300%;
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: grad-shift 6s ease-in-out infinite;
+}
+@keyframes grad-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.lead {
+  text-align: center; margin: 16px auto 54px; max-width: 560px;
+  font-size: 17px; color: var(--id2);
+}
+
+/* section titles */
+.section-title {
+  font-size: 11px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--idd); margin-bottom: 18px;
+  display: flex; align-items: center; gap: 14px;
+}
+.section-title::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(155,111,232,.35), transparent); }
+
+/* steps */
+.steps { display: grid; gap: 14px; margin-bottom: 56px; }
+.step {
+  position: relative; display: grid; grid-template-columns: 46px 1fr; gap: 18px;
+  padding: 22px 24px; border-radius: 14px; align-items: start;
+  background: linear-gradient(180deg, rgba(26,16,48,.55), rgba(8,6,16,.62));
+  border: 1px solid rgba(155,111,232,.22);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  box-shadow: inset 0 1px 0 rgba(196,164,255,.18), 0 24px 50px -28px rgba(0,0,0,.85);
+  transition: transform .4s ease, border-color .4s ease, box-shadow .4s ease;
+}
+.step:hover {
+  transform: translateY(-4px);
+  border-color: rgba(196,164,255,.5);
+  box-shadow: inset 0 1px 0 rgba(196,164,255,.24), 0 28px 56px -28px rgba(0,0,0,.9), 0 0 44px -14px rgba(155,111,232,.4);
+}
+.step-num {
+  font-size: 26px; font-weight: 900; line-height: 1; letter-spacing: -0.03em;
+  color: var(--purple-br); opacity: .3;
+}
+.step h2 { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 6px; }
+.step p { font-size: 14.5px; color: var(--id2); }
+.step p + p { margin-top: 8px; }
+.step p a { color: var(--purple-br); font-weight: 700; border-bottom: 1px solid rgba(196,164,255,.4); }
+.step p a:hover { color: #fff; border-color: #fff; }
+.step .hint {
+  margin-top: 10px; font-size: 13px; color: var(--idd);
+}
+.step .hint b { color: var(--id2); font-weight: 700; }
+
+/* prompt block */
+.prompt-card {
+  position: relative; border-radius: 16px; overflow: hidden;
+  background: linear-gradient(180deg, rgba(26,16,48,.6), rgba(8,6,16,.75));
+  border: 1px solid rgba(155,111,232,.3);
+  box-shadow: inset 0 1px 0 rgba(196,164,255,.18), 0 30px 60px -30px rgba(0,0,0,.9), 0 0 60px -20px rgba(155,111,232,.35);
+}
+.prompt-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  padding: 16px 20px; border-bottom: 1px solid rgba(155,111,232,.2);
+  background: rgba(8,6,16,.55);
+}
+.prompt-title {
+  font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--purple-br); display: flex; align-items: center; gap: 10px;
+}
+.prompt-title .dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--purple-br); box-shadow: 0 0 12px rgba(196,164,255,.9);
+  animation: pulse 2.4s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+.prompt-body {
+  max-height: 520px; overflow-y: auto;
+  padding: 24px 26px 30px;
+  font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
+  font-size: 12.5px; line-height: 1.75; color: var(--id2);
+  white-space: pre-wrap; word-break: break-word;
+}
+.prompt-body::-webkit-scrollbar { width: 8px; }
+.prompt-body::-webkit-scrollbar-track { background: transparent; }
+.prompt-body::-webkit-scrollbar-thumb { background: rgba(155,111,232,.35); border-radius: 100px; }
+.prompt-fade {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 60px; pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(5,5,8,.9));
+}
+
+/* buttons */
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: inherit; font-weight: 700; font-size: 13px;
+  text-transform: uppercase; letter-spacing: .09em;
+  border-radius: 100px; cursor: pointer; border: none;
+  transition: transform .25s ease, background .25s ease, border-color .25s ease, box-shadow .25s ease, color .25s ease;
+  white-space: nowrap;
+}
+.btn-primary {
+  background: linear-gradient(180deg, rgba(155,111,232,.26), rgba(91,47,190,.12)), rgba(8,6,16,.55);
+  border: 1px solid rgba(196,164,255,.5);
+  padding: 14px 27px; color: #fff;
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 12px 28px -14px rgba(0,0,0,.8), 0 0 34px -10px rgba(155,111,232,.55);
+  text-shadow: 0 0 14px rgba(196,164,255,.5);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  border-color: rgba(196,164,255,.85);
+  background: linear-gradient(180deg, rgba(155,111,232,.38), rgba(91,47,190,.18)), rgba(8,6,16,.55);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.28), 0 16px 34px -14px rgba(0,0,0,.8), 0 0 48px -10px rgba(155,111,232,.75);
+}
+.btn-sm { padding: 10px 20px; font-size: 11px; }
+.btn-xl { padding: 18px 40px; font-size: 15px; }
+.btn.copied {
+  border-color: rgba(94,224,238,.7);
+  color: #5EE0EE;
+  text-shadow: 0 0 14px rgba(94,224,238,.5);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 12px 28px -14px rgba(0,0,0,.8), 0 0 34px -10px rgba(0,196,212,.55);
+}
+
+.cta-wrap { text-align: center; margin-top: 34px; }
+.cta-note { margin-top: 14px; font-size: 13px; color: var(--idd); }
+
+/* footer */
+footer {
+  padding: 22px 0;
+  background: linear-gradient(180deg, #0b0718, var(--black));
+  border-top: 1px solid var(--line);
+  position: relative; z-index: 2;
+}
+footer .container { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.footer-phrase { color: var(--idd); font-style: italic; font-size: 12.5px; }
+.footer-copy { font-size: 11px; color: var(--idd); }
+
+@media (max-width: 600px) {
+  main { padding: 50px 0 64px; }
+  h1 { font-size: 26px; }
+  .lead { font-size: 15.5px; margin-bottom: 40px; }
+  .step { grid-template-columns: 36px 1fr; gap: 12px; padding: 18px; }
+  .step-num { font-size: 21px; }
+  .step h2 { font-size: 16.5px; }
+  .prompt-head { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .prompt-body { padding: 18px 16px 26px; font-size: 12px; }
+  .cube-wrap { display: none; }
+  .header-meta { display: none; }
+  footer .container { flex-direction: column; gap: 6px; text-align: center; }
+  .btn-xl { width: 100%; justify-content: center; padding: 16px 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="orb orb-purple"></div>
+<div class="orb orb-violet"></div>
+
+<header class="page-header">
+  <div class="container">
+    <a href="index.html"><img class="logo-img" src="wikki-logo-footer.png" alt="WIKKI.OCEAN"></a>
+    <span class="header-meta">Океан возможностей · Подарок участникам</span>
+  </div>
+</header>
+
+<main>
+  <div class="cube-wrap" style="left:6%; top:10%; --s:44px;" aria-hidden="true">
+    <div class="cube" style="--s:44px;"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  </div>
+  <div class="cube-wrap" style="right:7%; top:20%; --s:30px; animation-delay:-4s;" aria-hidden="true">
+    <div class="cube" style="--s:30px; animation-duration:24s; animation-direction:reverse;"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  </div>
+
+  <div class="container">
+    <p class="eyebrow">Забирай с собой</p>
+    <h1>Твой промпт-инженер</h1>
+    <p class="lead">Твой личный агент, который создаёт промпты и инструкции для других агентов. Описываешь задачу своими словами — он собирает под неё точный, рабочий промпт</p>
+
+    <p class="section-title">Как подключить — три шага</p>
+
+    <div class="steps">
+      <div class="step">
+        <span class="step-num">01</span>
+        <div>
+          <h2>Скопируй промпт</h2>
+          <p>Кнопка «Скопировать промпт» ниже — она забирает весь текст целиком, ничего выделять не нужно</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <span class="step-num">02</span>
+        <div>
+          <h2>Создай проект и вставь промпт в инструкции</h2>
+          <p>В <b>ChatGPT</b>: в меню слева «Проекты» → «Новый проект» → открой настройки проекта и вставь скопированный текст в поле «Инструкции».</p>
+          <p>В <b>Claude</b>: «Projects» → «Create project» → вставь текст в поле «Instructions».</p>
+          <p>Сохрани — теперь это твой полноценный агент. Каждый чат внутри проекта сразу работает как промпт-инженер, вставлять текст заново не нужно</p>
+          <p class="hint">Если проекты недоступны на твоём тарифе — просто вставь промпт первым сообщением в новый чат и не удаляй этот чат</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <span class="step-num">03</span>
+        <div>
+          <h2>Ставь задачи своими словами</h2>
+          <p>Открой чат внутри проекта и напиши, что нужно. Например: «Собери промпт для агента, который пишет посты для моего Instagram про ремонт квартир». Если информации мало — агент сам задаст уточняющие вопросы и выдаст готовый промпт, который останется только скопировать</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="section-title">Сам промпт</p>
+
+    <div class="prompt-card">
+      <div class="prompt-head">
+        <span class="prompt-title"><span class="dot"></span>PromptGPT · системный промпт</span>
+        <button class="btn btn-primary btn-sm" data-copy>Скопировать промпт
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><rect x="4.5" y="4.5" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M9.5 4.5V3a1.5 1.5 0 0 0-1.5-1.5H3A1.5 1.5 0 0 0 1.5 3v5A1.5 1.5 0 0 0 3 9.5h1.5" stroke="currentColor" stroke-width="1.6"/></svg>
+        </button>
+      </div>
+      <div class="prompt-body" id="promptText">Ты становишься специализированным инструментом для создания промптов — PromptGPT. Твоя задача — разработать эффективные, точные и детализированные промпты, адаптированные под конкретные запросы пользователя.
+
+Твоя квалификация:
+— Ты эксперт в области промпт-инжиниринга с глубоким пониманием принципов работы языковых моделей
+— Ты обладаешь структурным мышлением и умением выявлять ключевые элементы задачи
+— Ты знаешь техники оптимизации промптов для максимальной эффективности
+— Ты умеешь адаптировать промпты под различные типы задач и стили коммуникации
+
+Золотые правила создания эффективных промптов:
+1. Конкретность и ясность — всегда формулируй цель предельно четко, устраняя любые двусмысленности
+2. Структурированность — разбивай сложные запросы на логические блоки с четкой иерархией
+3. Определение роли — четко указывай, какую экспертную роль должна принять нейросеть
+4. Контекст вместо преувеличений — используй релевантный контекст вместо эмоциональных усилений
+5. Пошаговые инструкции — направляй процесс мышления нейросети с помощью последовательных шагов
+6. Формат вывода — однозначно определяй, в каком виде должен быть представлен результат
+7. Примеры — иллюстрируй желаемый результат конкретными примерами, когда это возможно
+8. Краткость — избегай лишних слов, которые не добавляют ценности запросу
+9. Ограничения и критерии — указывай конкретные параметры успешного результата
+10. Итеративный подход — проектируй промпты с возможностью их улучшения на основе обратной связи
+
+Твой подход к работе:
+
+1. Анализ запроса пользователя:
+— Определение конечной цели и желаемого результата
+— Выявление целевой аудитории и контекста использования
+— Идентификация ключевых требований и ограничений
+
+2. Структурирование промпта:
+— Определение оптимальной роли для ИИ в контексте задачи
+— Спецификация необходимых навыков и знаний для решения задачи
+— Формулировка четких инструкций и критериев успешного результата
+— Определение формата вывода информации
+
+3. Оптимизация промпта:
+— Внедрение элементов одностороннего и двустороннего распределения внимания
+— Применение техник уточнения (Chain-of-Thought, Step-by-Step)
+— Обеспечение конкретности и детализации запроса
+— Устранение неоднозначностей и потенциальных смещений
+— Применение всех золотых правил создания эффективных промптов
+
+Формат выдачи
+При создании промпта предоставь следующую структуру:
+1. Название промпта — краткое и информативное
+2. Описание — что делает этот промпт и для каких задач он предназначен
+3. Основной текст промпта — сам промпт в готовом к использованию виде
+4. Комментарии — пояснения по ключевым элементам и принципам работы (опционально)
+
+Помни: хороший промпт — это технический инструмент, а не заклинание. Чем точнее инструкции, тем точнее результат. Стремись к технической точности, а не эмоциональному усилению.
+
+Приступай к работе, задавая уточняющие вопросы, если информации недостаточно для создания оптимального промпта.</div>
+      <div class="prompt-fade"></div>
+    </div>
+
+    <div class="cta-wrap">
+      <button class="btn btn-primary btn-xl" data-copy>Скопировать промпт
+        <svg width="15" height="15" viewBox="0 0 14 14" fill="none"><rect x="4.5" y="4.5" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M9.5 4.5V3a1.5 1.5 0 0 0-1.5-1.5H3A1.5 1.5 0 0 0 1.5 3v5A1.5 1.5 0 0 0 3 9.5h1.5" stroke="currentColor" stroke-width="1.6"/></svg>
+      </button>
+      <p class="cta-note">Вопросы по настройке — пиши в личные сообщения <a href="https://t.me/shark_wikki" target="_blank" rel="noopener" style="color:var(--purple-br); font-weight:700;">@shark_wikki</a></p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <img class="logo-img" src="wikki-logo-footer.png" alt="WIKKI.OCEAN" style="height:24px">
+    <p class="footer-phrase">Потенциал человека = потенциал океана</p>
+    <p class="footer-copy">© 2026 WIKKI.OCEAN</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var promptEl = document.getElementById('promptText');
+  var buttons = document.querySelectorAll('[data-copy]');
+
+  function fallbackCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+
+  buttons.forEach(function (btn) {
+    var original = btn.innerHTML;
+    btn.addEventListener('click', function () {
+      var text = promptEl.textContent;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).catch(function () { fallbackCopy(text); });
+      } else {
+        fallbackCopy(text);
+      }
+      btn.classList.add('copied');
+      btn.innerHTML = 'Скопировано &#10003;';
+      setTimeout(function () {
+        btn.classList.remove('copied');
+        btn.innerHTML = original;
+      }, 2200);
+    });
+  });
+})();
+</script>
+</body>
+</html>
