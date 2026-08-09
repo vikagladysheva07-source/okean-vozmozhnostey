@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Твой промпт-инженер — ОКЕАН ВОЗМОЖНОСТЕЙ</title>
+<title>Промпт-инженер — ОКЕАН ВОЗМОЖНОСТЕЙ</title>
 <meta name="description" content="Подарок участникам конференции «Океан возможностей»: готовый промпт, который превращает нейросеть в личного промпт-инженера. Скопируй и пользуйся.">
-<meta property="og:title" content="Твой промпт-инженер — ОКЕАН ВОЗМОЖНОСТЕЙ">
+<meta property="og:title" content="Промпт-инженер — ОКЕАН ВОЗМОЖНОСТЕЙ">
 <meta property="og:description" content="Готовый промпт, который превращает нейросеть в личного промпт-инженера. Инструкция из трёх шагов.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A6%88%3C/text%3E%3C/svg%3E">
@@ -14,8 +14,8 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,900;1,9..40,400&display=swap" rel="stylesheet">
 <style>
 :root {
-  --black:      #020204;
-  --surface:    #06040E;
+  --black:      #030308;
+  --surface:    #030308;
   --ivory:      #F2EDE2;
   --id:         rgba(255,255,255,.87);
   --id2:        rgba(255,255,255,.60);
@@ -45,6 +45,12 @@ body {
 ::selection { background: rgba(155,111,232,.35); color: #fff; }
 img { max-width: 100%; display: block; }
 a { text-decoration: none; color: inherit; }
+
+/* единый фоновый слой — свечение на весь экран, без полос по секциям */
+.glow-top {
+  position: fixed; inset: 0; z-index: -2; pointer-events: none;
+  background: radial-gradient(ellipse 95% 42% at 50% -4%, rgba(91,47,190,.16), transparent 66%);
+}
 
 /* ambient orbs */
 .orb { position: fixed; pointer-events: none; z-index: -1; filter: blur(90px); border-radius: 50%; }
@@ -90,9 +96,7 @@ a { text-decoration: none; color: inherit; }
 main {
   flex: 1; position: relative;
   padding: 70px 0 90px;
-  background:
-    radial-gradient(ellipse 85% 50% at 50% 2%, rgba(91,47,190,.20), transparent 62%),
-    linear-gradient(180deg, rgba(10,6,22,0) 0%, rgba(10,6,22,.5) 14%, rgba(2,2,4,0) 72%);
+  background: none;
 }
 
 .eyebrow {
@@ -192,7 +196,7 @@ h1 {
 .prompt-body::-webkit-scrollbar-thumb { background: rgba(155,111,232,.35); border-radius: 100px; }
 .prompt-fade {
   position: absolute; left: 0; right: 0; bottom: 0; height: 60px; pointer-events: none;
-  background: linear-gradient(180deg, transparent, rgba(2,2,4,.92));
+  background: linear-gradient(180deg, transparent, rgba(3,3,8,.92));
 }
 
 /* buttons */
@@ -233,7 +237,7 @@ h1 {
 /* footer */
 footer {
   padding: 40px 0 26px;
-  background: linear-gradient(180deg, rgba(10,6,22,0) 0%, rgba(8,5,18,.55) 45%, rgba(2,2,4,.9) 100%);
+  background: none;
   position: relative; z-index: 2;
 }
 footer .container { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
@@ -258,6 +262,7 @@ footer .container { display: flex; align-items: center; justify-content: space-b
 </head>
 <body>
 
+<div class="glow-top"></div>
 <div class="orb orb-purple"></div>
 <div class="orb orb-violet"></div>
 
@@ -278,7 +283,7 @@ footer .container { display: flex; align-items: center; justify-content: space-b
 
   <div class="container">
     <p class="eyebrow">Забирай с собой</p>
-    <h1>Твой промпт-инженер</h1>
+    <h1>Промпт-инженер</h1>
     <p class="lead">Твой личный агент, который создаёт промпты и инструкции для других агентов. Описываешь задачу своими словами — он собирает под неё точный, рабочий промпт</p>
 
     <p class="section-title">Как подключить — три шага</p>
